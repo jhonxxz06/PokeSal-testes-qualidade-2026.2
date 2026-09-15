@@ -6,8 +6,17 @@ public enum ElementosTipagem {
     Fogo(12), Agua(10), Planta(11);
     private int multiplicadorPositivo = 2;
     private double multiplicadorNegativo = 0.5;
-    private final double dano;
+    //private final double dano;
+    private double dano;
     ElementosTipagem(double dano){
+        this.dano = dano;
+    }
+
+    public double getDano() {
+        return dano;
+    }
+
+    public void setDano(double dano) {
         this.dano = dano;
     }
 

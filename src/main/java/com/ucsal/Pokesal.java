@@ -2,7 +2,7 @@ package com.ucsal;
 
 public class Pokesal {
     private String nome;
-    private static int HP;
+    private static double HP;
     private String ATK;
     private String ATK2;
     private int SPD;
@@ -52,11 +52,11 @@ public class Pokesal {
         this.elementosTipagem = elementosTipagem;
     }
 
-    public int getHP() {
+    public double getHP() {
         return HP;
     }
 
-    public static void setHP(int HP) {
+    public  void setHP(double HP) {
         Pokesal.HP = HP;
     }
 
