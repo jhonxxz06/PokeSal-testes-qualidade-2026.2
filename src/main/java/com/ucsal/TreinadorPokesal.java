@@ -40,4 +40,8 @@ public class TreinadorPokesal {
     public int getItensUso() {
         return itensUso;
     }
+
+    public void setItensUso(int itensUso) {
+        this.itensUso = itensUso;
+    }
 }
