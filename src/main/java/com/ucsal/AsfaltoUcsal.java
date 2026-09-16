@@ -1,5 +1,4 @@
 package com.ucsal;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum AsfaltoUcsal {
@@ -32,10 +31,11 @@ public enum AsfaltoUcsal {
             case PisoEscorregadio:
                 ElementosTipagem.Agua.setDano(ElementosTipagem.Agua.getDano() * PisoEscorregadio.percentual);
                 break;
-            case CanteiroCentral:
-                if(pokesal.getElementosTipagem() == ElementosTipagem.Planta){
-                    pokesal.setHP(pokesal.getHP() + (pokesal.getHP() * CanteiroCentral.percentual));
-                }
+        }
+    }
+    public void aplicarRecuperacaoHpPlanta(Pokesal pokesal){
+        if(pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
+            pokesal.setHP(pokesal.getHP() + (pokesal.getHP() * CanteiroCentral.percentual));
         }
     }
 

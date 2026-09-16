@@ -20,7 +20,12 @@ public class PokesalBatalha {
         int opSelecionada;
         if (desafiante1.getPokesal().getSPD() > desafiante2.getPokesal().getSPD()) {
             while (desafiante1.getPokesal().getHP() > 0 && desafiante2.getPokesal().getHP() > 0) {
-
+                if(desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
+                }
+                else if(desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
+                }
                 System.out.println("Pokesal - Temos que forma-los!");
 
                 if (contadorTurnos % 2 == 0) {
@@ -79,6 +84,12 @@ public class PokesalBatalha {
         }
         else{
             while (desafiante2.getPokesal().getHP() > 0 && desafiante1.getPokesal().getHP() > 0) {
+                if(desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
+                }
+                else if(desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
+                }
                 System.out.println("Pokesal - Temos que forma-los!");
                 if (contadorTurnos % 2 == 0) {
                     System.out.println("Selecione suas opções Treinador(a) " + desafiante2.getNome());
