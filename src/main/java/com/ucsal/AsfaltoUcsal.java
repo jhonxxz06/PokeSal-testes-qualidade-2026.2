@@ -9,7 +9,7 @@ public enum AsfaltoUcsal {
     AsfaltoUcsal(double percentual){
         this.percentual = percentual;
     }
-    public AsfaltoUcsal escolherAsfalto(){
+    public static AsfaltoUcsal escolherAsfalto(){
         int sorteadorTerreno = ThreadLocalRandom.current().nextInt(0,3);
 
         if(sorteadorTerreno == 0){
