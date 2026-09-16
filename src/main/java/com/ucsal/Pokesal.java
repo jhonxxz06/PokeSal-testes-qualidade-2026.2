@@ -21,8 +21,9 @@ public class Pokesal {
             System.out.println("Pokesal derrotado! não pode receber mais dano");
         }
 
-        HP = HP - dano.CalculoEfetividade();
-        System.out.println("O dano sofrido foi de: " + dano.CalculoEfetividade());
+        double danototal = dano.CalculoEfetividade(this.elementosTipagem);
+        HP = HP - danototal;
+        System.out.println("O dano sofrido foi de: " + danototal);
 
         System.out.println("A vida restante é de: "+ HP);
 
