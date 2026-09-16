@@ -4,13 +4,14 @@ public class TreinadorPokesal {
     private String nome;
     private Pokesal pokesal;
     private String cidade;
-    private int itensUso;
-   // - ideia futura private Mochila mochila;
+    private int itensUso = 0;
+    private Mochila acessorios;
 
-    public TreinadorPokesal(String nome, Pokesal pokesal, String cidade) {
+    public TreinadorPokesal(String nome, Pokesal pokesal, String cidade,Mochila acessorios) {
         this.nome = nome;
         this.pokesal = pokesal;
         this.cidade = cidade;
+        this.acessorios = acessorios;
     }
 
     public String getNome() {
@@ -43,5 +44,13 @@ public class TreinadorPokesal {
 
     public void setItensUso(int itensUso) {
         this.itensUso = itensUso;
+    }
+
+    public Mochila getAcessorios() {
+        return acessorios;
+    }
+
+    public void setAcessorios(Mochila acessorios) {
+        this.acessorios = acessorios;
     }
 }

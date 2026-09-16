@@ -28,6 +28,7 @@ public enum ElementosTipagem {
             case Fogo:
                 if(adversario == Planta) {
                     return (Fogo.dano * multiplicadorPositivo);
+                    // colocar break
                 }
                 else if(adversario == Agua){
                     return (Fogo.dano * multiplicadorNegativo);
