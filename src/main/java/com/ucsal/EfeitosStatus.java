@@ -17,11 +17,11 @@ public enum EfeitosStatus {
     }
 
     /**
-     0 ideias de como contar os turnos de efeito
-    public void ContarTurno(EfeitosStatus efeito) {
-        efeito.setTurnos(efeito.getTurnos() - 1);
-    }
-    **/
+     * 0 ideias de como contar os turnos de efeito
+     * public void ContarTurno(EfeitosStatus efeito) {
+     * efeito.setTurnos(efeito.getTurnos() - 1);
+     * }
+     **/
 
 // Mecanismo de randomizar para não ser toda hora que fica queimado
 // Retirar efeitos após turnos
@@ -49,8 +49,7 @@ public enum EfeitosStatus {
             case Planta:
                 if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
                     System.out.println("Não sofreu envenenamento ");
-                }
-                else{
+                } else {
                     pokesal.setStatusAtual(EfeitosStatus.Paralizado);
                     System.out.println(pokesal.getNome() + " sofreu com envenenamento");
                     pokesal.setHP(pokesal.getHP() - (pokesal.getHP() * 0.20));

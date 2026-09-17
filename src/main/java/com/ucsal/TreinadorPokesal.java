@@ -7,7 +7,7 @@ public class TreinadorPokesal {
     private int itensUso = 0;
     private Mochila acessorios;
 
-    public TreinadorPokesal(String nome, Pokesal pokesal, String cidade,Mochila acessorios) {
+    public TreinadorPokesal(String nome, Pokesal pokesal, String cidade, Mochila acessorios) {
         this.nome = nome;
         this.pokesal = pokesal;
         this.cidade = cidade;

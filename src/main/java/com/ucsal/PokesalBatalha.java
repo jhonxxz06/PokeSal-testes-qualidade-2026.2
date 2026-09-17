@@ -1,14 +1,15 @@
 package com.ucsal;
+
 import java.util.Scanner;
+
 public class PokesalBatalha {
-    private TreinadorPokesal desafiante1;
-    private TreinadorPokesal desafiante2;
-    private int contadorTurnos = 0;
-    private AsfaltoUcsal tipoAsfalto;
-
     Scanner ler = new Scanner(System.in);
+    private final TreinadorPokesal desafiante1;
+    private final TreinadorPokesal desafiante2;
+    private int contadorTurnos = 0;
+    private final AsfaltoUcsal tipoAsfalto;
 
-    public PokesalBatalha(TreinadorPokesal desafiante1, TreinadorPokesal desafiante2){
+    public PokesalBatalha(TreinadorPokesal desafiante1, TreinadorPokesal desafiante2) {
         this.desafiante1 = desafiante1;
         this.desafiante2 = desafiante2;
         this.tipoAsfalto = AsfaltoUcsal.escolherAsfalto();
@@ -20,13 +21,12 @@ public class PokesalBatalha {
         int opSelecionada;
         if (desafiante1.getPokesal().getSPD() > desafiante2.getPokesal().getSPD()) {
             while (desafiante1.getPokesal().getHP() > 0 && desafiante2.getPokesal().getHP() > 0) {
-                if(desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
-                }
-                else if(desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                } else if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
                 }
-                System.out.println("Pokesal - Temos que forma-los!");
+                System.out.println("Pokesal - Temos que formá-los!");
 
                 if (contadorTurnos % 2 == 0) {
 
@@ -42,7 +42,7 @@ public class PokesalBatalha {
                             desafiante2.getPokesal().PokesalDanoSofrido(desafiante1.getPokesal().getElementosTipagem());
                             break;
                         case 2:
-                            desafiante1.getAcessorios().usarPocao(desafiante1,desafiante1.getAcessorios());
+                            desafiante1.getAcessorios().usarPocao(desafiante1, desafiante1.getAcessorios());
                             break;
                         case 3:
                             System.out.println(desafiante1.getNome() + " fugiu da batalha..." + desafiante2.getNome() + " venceu...");
@@ -50,8 +50,7 @@ public class PokesalBatalha {
                             break;
                     }
                     contadorTurnos += 1;
-                }
-                else {
+                } else {
 
                     System.out.println("Selecione suas opções Treinador(a) " + desafiante2.getNome());
 
@@ -65,7 +64,7 @@ public class PokesalBatalha {
                             desafiante1.getPokesal().PokesalDanoSofrido(desafiante2.getPokesal().getElementosTipagem());
                             break;
                         case 2:
-                            desafiante2.getAcessorios().usarPocao(desafiante2,desafiante2.getAcessorios());
+                            desafiante2.getAcessorios().usarPocao(desafiante2, desafiante2.getAcessorios());
                             break;
                         case 3:
                             System.out.println(desafiante2.getNome() + " fugiu da batalha..." + desafiante1.getNome() + " venceu...");
@@ -75,22 +74,19 @@ public class PokesalBatalha {
                     contadorTurnos += 1;
                 }
             }
-            if(desafiante1.getPokesal().getHP() <= 0){
-                System.out.println("O oponente " + desafiante2.getNome() + "do Pokesal " + desafiante2.getPokesal().getNome() + "Foi o vencedor");
+            if (desafiante1.getPokesal().getHP() <= 0) {
+                System.out.println("O oponente " + desafiante2.getNome() + " do Pokesal " + desafiante2.getPokesal().getNome() + " foi o vencedor");
+            } else {
+                System.out.println("O oponente " + desafiante1.getNome() + " do Pokesal " + desafiante1.getPokesal().getNome() + " foi o vencedor");
             }
-            else{
-                System.out.println("O oponente " + desafiante1.getNome() + "do Pokesal " + desafiante1.getPokesal().getNome() + "Foi o vencedor");
-            }
-        }
-        else{
+        } else {
             while (desafiante2.getPokesal().getHP() > 0 && desafiante1.getPokesal().getHP() > 0) {
-                if(desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
-                }
-                else if(desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta){
+                } else if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
                 }
-                System.out.println("Pokesal - Temos que forma-los!");
+                System.out.println("Pokesal - Temos que formá-los!");
                 if (contadorTurnos % 2 == 0) {
                     System.out.println("Selecione suas opções Treinador(a) " + desafiante2.getNome());
                     System.out.println("1 - Atacar Oponente " +
@@ -102,7 +98,7 @@ public class PokesalBatalha {
                             desafiante1.getPokesal().PokesalDanoSofrido(desafiante2.getPokesal().getElementosTipagem());
                             break;
                         case 2:
-                            desafiante2.getAcessorios().usarPocao(desafiante2,desafiante2.getAcessorios());
+                            desafiante2.getAcessorios().usarPocao(desafiante2, desafiante2.getAcessorios());
                             break;
                         case 3:
                             System.out.println(desafiante2.getNome() + " fugiu da batalha..." + desafiante1.getNome() + " venceu...");
@@ -110,8 +106,7 @@ public class PokesalBatalha {
                             break;
                     }
                     contadorTurnos += 1;
-                }
-                else {
+                } else {
                     System.out.println("Selecione suas opções Treinador(a) " + desafiante1.getNome());
                     System.out.println("1 - Atacar Oponente " +
                             "\n 2 - Usar Poção " + desafiante1.getItensUso() + "/2 " +
@@ -122,7 +117,7 @@ public class PokesalBatalha {
                             desafiante2.getPokesal().PokesalDanoSofrido(desafiante1.getPokesal().getElementosTipagem());
                             break;
                         case 2:
-                            desafiante1.getAcessorios().usarPocao(desafiante1,desafiante1.getAcessorios());
+                            desafiante1.getAcessorios().usarPocao(desafiante1, desafiante1.getAcessorios());
                             break;
                         case 3:
                             System.out.println(desafiante1.getNome() + " fugiu da batalha..." + desafiante2.getNome() + " venceu...");
@@ -132,11 +127,10 @@ public class PokesalBatalha {
                     contadorTurnos += 1;
                 }
             }
-            if(desafiante1.getPokesal().getHP() <= 0){
-                System.out.println("O oponente " + desafiante2.getNome() + "do Pokesal " + desafiante2.getPokesal().getNome() + "Foi o vencedor");
-            }
-            else{
-                System.out.println("O oponente " + desafiante1.getNome() + "do Pokesal " + desafiante1.getPokesal().getNome() + "Foi o vencedor");
+            if (desafiante1.getPokesal().getHP() <= 0) {
+                System.out.println("O oponente " + desafiante2.getNome() + " do Pokesal " + desafiante2.getPokesal().getNome() + " foi o vencedor");
+            } else {
+                System.out.println("O oponente " + desafiante1.getNome() + " do Pokesal " + desafiante1.getPokesal().getNome() + " foi o vencedor");
 
             }
         }

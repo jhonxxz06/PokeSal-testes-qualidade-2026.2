@@ -5,6 +5,12 @@ public class Mochila {
     private String item_descricao;
     private int quantidades;
 
+    public Mochila(String item, String item_descricao, int quantidades) {
+        this.item = item;
+        this.item_descricao = item_descricao;
+        this.quantidades = quantidades;
+    }
+
     public String getItem() {
         return item;
     }
@@ -29,12 +35,7 @@ public class Mochila {
         this.quantidades = quantidades;
     }
 
-    public Mochila(String item, String item_descricao, int quantidades) {
-        this.item = item;
-        this.item_descricao = item_descricao;
-        this.quantidades = quantidades;
-    }
-    public void usarPocao(TreinadorPokesal treinador, Mochila pocao){
+    public void usarPocao(TreinadorPokesal treinador, Mochila pocao) {
         // ver um verificador de poção
         System.out.println("Poção Selecionada...");
         treinador.getPokesal().setHP((treinador.getPokesal().getHP() + 5));
@@ -43,7 +44,8 @@ public class Mochila {
         pocao.setQuantidades(getQuantidades() - 1);
         // pensar para diminuição da quantidade dos itens
     }
-    public void usarSuperPocao(TreinadorPokesal treinador, Mochila superPocao){
+
+    public void usarSuperPocao(TreinadorPokesal treinador, Mochila superPocao) {
         System.out.println("Super Poção Selecionada...");
         treinador.getPokesal().setHP((treinador.getPokesal().getHP() + 10));
         System.out.println(treinador.getPokesal().getNome() + " teve 10 pnts de vida restaurados");

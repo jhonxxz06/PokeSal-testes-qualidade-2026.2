@@ -1,15 +1,15 @@
 package com.ucsal;
 
 public class Pokesal {
+    private double HP;
     private String nome;
-    private static double HP;
     private String ATK;
     private String ATK2;
     private int SPD;
     private ElementosTipagem elementosTipagem;
     private EfeitosStatus statusAtual = null;
 
-    public Pokesal(String nome, int HP, String ATK,String ATK2, int SPD, ElementosTipagem elementosTipagem) {
+    public Pokesal(String nome, double HP, String ATK, String ATK2, int SPD, ElementosTipagem elementosTipagem) {
         this.nome = nome;
         this.HP = HP;
         this.ATK = ATK;
@@ -17,8 +17,9 @@ public class Pokesal {
         this.SPD = SPD;
         this.elementosTipagem = elementosTipagem;
     }
-    public void PokesalDanoSofrido(ElementosTipagem dano){
-        if (HP <= 0){
+
+    public void PokesalDanoSofrido(ElementosTipagem dano) {
+        if (HP <= 0) {
             System.out.println("Pokesal derrotado! não pode receber mais dano");
         }
 
@@ -26,7 +27,7 @@ public class Pokesal {
         HP = HP - danototal;
         System.out.println("O dano sofrido foi de: " + danototal);
 
-        System.out.println("A vida restante é de: "+ HP);
+        System.out.println("A vida restante é de: " + HP);
 
     }
 
@@ -58,8 +59,8 @@ public class Pokesal {
         return HP;
     }
 
-    public  void setHP(double HP) {
-        Pokesal.HP = HP;
+    public void setHP(double HP) {
+        this.HP = HP;
     }
 
     public String getNome() {
