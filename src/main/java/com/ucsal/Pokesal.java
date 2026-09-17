@@ -7,6 +7,7 @@ public class Pokesal {
     private String ATK2;
     private int SPD;
     private ElementosTipagem elementosTipagem;
+    private EfeitosStatus statusAtual = null;
 
     public Pokesal(String nome, int HP, String ATK,String ATK2, int SPD, ElementosTipagem elementosTipagem) {
         this.nome = nome;
@@ -75,5 +76,13 @@ public class Pokesal {
 
     public void setSPD(int SPD) {
         this.SPD = SPD;
+    }
+
+    public EfeitosStatus getStatusAtual() {
+        return statusAtual;
+    }
+
+    public void setStatusAtual(EfeitosStatus statusAtual) {
+        this.statusAtual = statusAtual;
     }
 }
