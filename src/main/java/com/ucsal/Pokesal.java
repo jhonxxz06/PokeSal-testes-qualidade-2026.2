@@ -2,12 +2,15 @@ package com.ucsal;
 
 public class Pokesal {
     private double HP;
+    private double HpBatalha = HP;
     private String nome;
     private String ATK;
     private String ATK2;
     private int SPD;
+    private int SPDefeito = SPD;
     private ElementosTipagem elementosTipagem;
     private EfeitosStatus statusAtual = null;
+    private int turnosSofridos = 0;
 
     public Pokesal(String nome, double HP, String ATK, String ATK2, int SPD, ElementosTipagem elementosTipagem) {
         this.nome = nome;
@@ -15,6 +18,7 @@ public class Pokesal {
         this.ATK = ATK;
         this.ATK2 = ATK2;
         this.SPD = SPD;
+        this.SPDefeito = SPD;
         this.elementosTipagem = elementosTipagem;
     }
 
@@ -29,6 +33,43 @@ public class Pokesal {
 
         System.out.println("A vida restante é de: " + HP);
 
+    }
+
+    public void contarTurnoEfeito(){
+        if(getStatusAtual() != null){
+            if(turnosSofridos < statusAtual.getTurnos()) {
+                turnosSofridos += 1;
+                // fazer a diferença de sofrer dano ou a redução de velocidade fixa (acho que não é necessário)
+                System.out.println("Pokesal " + getNome() + " sofreu os efeitos");
+                sofrerDanoEfeitos();
+            }
+            else{
+                if(statusAtual == EfeitosStatus.Paralizado){
+                    SPDefeito = SPD;
+                }
+                turnosSofridos = 0;
+            }
+        }
+    }
+
+    public void sofrerDanoEfeitos(){
+        if(statusAtual == EfeitosStatus.Queimado){
+            System.out.println(getNome() + " sofreu com queimadura!E teve sua velocidade reduzida...");
+            HpBatalha = HpBatalha - (getHP() * 0.1);
+        }
+        else if(statusAtual == EfeitosStatus.Envenenado){
+            System.out.println(getNome() + " sofreu com envenenamento");
+            HpBatalha = HpBatalha - (getHP() * 0.2);
+        }
+    }
+    public void reduzirVelocidade(){
+        if(statusAtual == EfeitosStatus.Paralizado){
+            System.out.println(getNome() + " sofreu com paralisia! Velocidade reduzida...");
+            SPDefeito = getSPD() - 10;
+        }
+        if(statusAtual == EfeitosStatus.Queimado){
+            SPDefeito = getSPD() - 5;
+        }
     }
 
     public String getATK2() {

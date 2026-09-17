@@ -29,7 +29,10 @@ public class PokesalBatalha {
                 System.out.println("Pokesal - Temos que formá-los!");
 
                 if (contadorTurnos % 2 == 0) {
-
+                    // aplicar efeitos de veneno / dano
+                    if(desafiante1.getPokesal().getStatusAtual() != null){
+                        desafiante2.getPokesal().contarTurnoEfeito();
+                    }
                     System.out.println("Selecione suas opções Treinador(a) " + desafiante1.getNome());
 
                     System.out.println("1 - Atacar Oponente " +
@@ -62,6 +65,10 @@ public class PokesalBatalha {
                     switch (opSelecionada) {
                         case 1:
                             desafiante1.getPokesal().PokesalDanoSofrido(desafiante2.getPokesal().getElementosTipagem());
+                            if(desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Agua){
+                                // go horse da aplicaçao de efeitos
+                                desafiante2.getPokesal().reduzirVelocidade();
+                            }
                             break;
                         case 2:
                             desafiante2.getAcessorios().usarPocao(desafiante2, desafiante2.getAcessorios());

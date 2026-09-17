@@ -33,8 +33,7 @@ public enum EfeitosStatus {
                     System.out.println("Não sofreu queimadura ");
                 } else {
                     pokesal.setStatusAtual(EfeitosStatus.Queimado);
-                    System.out.println(pokesal.getNome() + " sofreu com queimadura! Velocidade reduzida...");
-                    pokesal.setHP(pokesal.getHP() - (pokesal.getHP() * 0.1));
+
 
                 }
             case Agua:
@@ -42,8 +41,7 @@ public enum EfeitosStatus {
                     System.out.println("Não sofreu paralisia ");
                 } else {
                     pokesal.setStatusAtual(EfeitosStatus.Paralizado);
-                    System.out.println(pokesal.getNome() + " sofreu com paralisia! Velocidade reduzida...");
-                    pokesal.setSPD(pokesal.getSPD() - 10);
+
                 }
 
             case Planta:
@@ -51,8 +49,7 @@ public enum EfeitosStatus {
                     System.out.println("Não sofreu envenenamento ");
                 } else {
                     pokesal.setStatusAtual(EfeitosStatus.Paralizado);
-                    System.out.println(pokesal.getNome() + " sofreu com envenenamento");
-                    pokesal.setHP(pokesal.getHP() - (pokesal.getHP() * 0.20));
+
                 }
         }
     }
