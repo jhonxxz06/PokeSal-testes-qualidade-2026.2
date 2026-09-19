@@ -5,8 +5,9 @@ public enum ElementosTipagem {
 
     Fogo(12), Agua(10), Planta(11);
     private final int multiplicadorPositivo = 2;
+
     private final double multiplicadorNegativo = 0.5;
-    //private final double dano;
+
     private double dano;
 
     ElementosTipagem(double dano) {
@@ -21,7 +22,7 @@ public enum ElementosTipagem {
         this.dano = dano;
     }
 
-    public double CalculoEfetividade(ElementosTipagem adversario) {
+    public double calculoEfetividade(ElementosTipagem adversario) {
         if (this == adversario) {
             return 1;
         }
@@ -29,7 +30,6 @@ public enum ElementosTipagem {
             case Fogo:
                 if (adversario == Planta) {
                     return (Fogo.dano * multiplicadorPositivo);
-                    // colocar break
                 } else if (adversario == Agua) {
                     return (Fogo.dano * multiplicadorNegativo);
                 }
@@ -46,6 +46,6 @@ public enum ElementosTipagem {
                     return (Planta.dano * multiplicadorNegativo);
                 }
         }
-        return 1.0;
+        return 1;
     }
 }

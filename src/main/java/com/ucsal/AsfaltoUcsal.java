@@ -11,7 +11,7 @@ public enum AsfaltoUcsal {
     }
 
     public static AsfaltoUcsal escolherAsfalto() {
-        int sorteadorTerreno = ThreadLocalRandom.current().nextInt(0, 3);
+        final int sorteadorTerreno = ThreadLocalRandom.current().nextInt(0, 3);
 
         if (sorteadorTerreno == 0) {
             return AsfaltoQuente;
@@ -26,17 +26,20 @@ public enum AsfaltoUcsal {
     public void definirVantagens(Pokesal pokesal) {
         switch (this) {
             case AsfaltoQuente:
-                ElementosTipagem.Fogo.setDano(ElementosTipagem.Fogo.getDano() * AsfaltoQuente.percentual);
+                ElementosTipagem.Fogo.setDano(ElementosTipagem.Fogo.getDano()
+                        * AsfaltoQuente.percentual);
                 break;
             case PisoEscorregadio:
-                ElementosTipagem.Agua.setDano(ElementosTipagem.Agua.getDano() * PisoEscorregadio.percentual);
+                ElementosTipagem.Agua.setDano(ElementosTipagem.Agua.getDano()
+                        * PisoEscorregadio.percentual);
                 break;
         }
     }
 
     public void aplicarRecuperacaoHpPlanta(Pokesal pokesal) {
         if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
-            pokesal.setHpBatalha(pokesal.getHpBatalha() + (pokesal.getHpBatalha() * CanteiroCentral.percentual));
+            pokesal.setHpBatalha(pokesal.getHpBatalha() +
+                    (pokesal.getHpBatalha() * CanteiroCentral.percentual));
         }
     }
 

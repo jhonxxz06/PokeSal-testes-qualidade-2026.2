@@ -16,7 +16,7 @@ public enum EfeitosStatus {
         this.turnos = turnos;
     }
 
-    public void DefinirEfeitos(Pokesal pokesal) {
+    public void definirEfeitos(Pokesal pokesal) {
 
         switch (this) {
             case Queimado:

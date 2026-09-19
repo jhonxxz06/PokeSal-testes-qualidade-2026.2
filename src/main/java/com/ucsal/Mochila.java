@@ -2,12 +2,14 @@ package com.ucsal;
 
 public class Mochila {
     private String item;
-    private String item_descricao;
+
+    private String itemDescricao;
+
     private int quantidades;
 
-    public Mochila(String item, String item_descricao, int quantidades) {
+    public Mochila(String item, String itemDescricao, int quantidades) {
         this.item = item;
-        this.item_descricao = item_descricao;
+        this.itemDescricao = itemDescricao;
         this.quantidades = quantidades;
     }
 
@@ -19,12 +21,12 @@ public class Mochila {
         this.item = item;
     }
 
-    public String getItem_descricao() {
-        return item_descricao;
+    public String getItemDescricao() {
+        return itemDescricao;
     }
 
-    public void setItem_descricao(String item_descricao) {
-        this.item_descricao = item_descricao;
+    public void setItemDescricao(String itemDescricao) {
+        this.itemDescricao = itemDescricao;
     }
 
     public int getQuantidades() {
@@ -40,7 +42,8 @@ public class Mochila {
         if (pocao.getQuantidades() > 0) {
             System.out.println("Poção Selecionada...");
             treinador.getPokesal().setHpBatalha((treinador.getPokesal().getHpBatalha() + 5));
-            System.out.println(treinador.getPokesal().getNome() + " teve 5 pnts de vida restaurados");
+            System.out.println(treinador.getPokesal().getNome()
+                    + " teve 5 pnts de vida restaurados");
             treinador.setItensUso(treinador.getItensUso() + 1);
             pocao.setQuantidades(getQuantidades() - 1);
             // pensar para diminuição da quantidade dos itens
@@ -53,7 +56,8 @@ public class Mochila {
         if (superPocao.getQuantidades() > 0) {
             System.out.println("Super Poção Selecionada...");
             treinador.getPokesal().setHpBatalha((treinador.getPokesal().getHpBatalha() + 10));
-            System.out.println(treinador.getPokesal().getNome() + " teve 10 pnts de vida restaurados");
+            System.out.println(treinador.getPokesal().getNome()
+                    + " teve 10 pnts de vida restaurados");
             treinador.setItensUso(treinador.getItensUso() + 1);
             superPocao.setQuantidades(getQuantidades() - 1);
             // pensar para diminuição da quantidade dos itens

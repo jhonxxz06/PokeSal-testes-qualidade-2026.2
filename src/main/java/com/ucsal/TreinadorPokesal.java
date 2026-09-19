@@ -2,9 +2,13 @@ package com.ucsal;
 
 public class TreinadorPokesal {
     private String nome;
+
     private Pokesal pokesal;
+
     private String cidade;
+
     private int itensUso = 0;
+
     private Mochila acessorios;
 
     public TreinadorPokesal(String nome, Pokesal pokesal, String cidade, Mochila acessorios) {
