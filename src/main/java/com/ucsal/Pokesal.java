@@ -15,6 +15,7 @@ public class Pokesal {
     public Pokesal(String nome, double HP, String ATK, String ATK2, int SPD, ElementosTipagem elementosTipagem) {
         this.nome = nome;
         this.HP = HP;
+        this.HpBatalha = HP;
         this.ATK = ATK;
         this.ATK2 = ATK2;
         this.SPD = SPD;
@@ -28,10 +29,10 @@ public class Pokesal {
         }
 
         double danototal = dano.CalculoEfetividade(this.elementosTipagem);
-        HP = HP - danototal;
+        HpBatalha = HpBatalha - danototal;
         System.out.println("O dano sofrido foi de: " + danototal);
 
-        System.out.println("A vida restante é de: " + HP);
+        System.out.println("A vida restante é de: " + HpBatalha);
 
     }
 
@@ -126,5 +127,17 @@ public class Pokesal {
 
     public void setStatusAtual(EfeitosStatus statusAtual) {
         this.statusAtual = statusAtual;
+    }
+
+    public double getHpBatalha() {
+        return HpBatalha;
+    }
+
+    public void setHpBatalha(double hpBatalha) {
+        HpBatalha = hpBatalha;
+    }
+
+    public int getTurnosSofridos() {
+        return turnosSofridos;
     }
 }

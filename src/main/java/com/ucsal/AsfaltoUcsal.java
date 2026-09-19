@@ -36,7 +36,7 @@ public enum AsfaltoUcsal {
 
     public void aplicarRecuperacaoHpPlanta(Pokesal pokesal) {
         if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
-            pokesal.setHP(pokesal.getHP() + (pokesal.getHP() * CanteiroCentral.percentual));
+            pokesal.setHpBatalha(pokesal.getHpBatalha() + (pokesal.getHpBatalha() * CanteiroCentral.percentual));
         }
     }
 

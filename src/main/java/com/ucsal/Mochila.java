@@ -38,7 +38,7 @@ public class Mochila {
     public void usarPocao(TreinadorPokesal treinador, Mochila pocao) {
         // ver um verificador de poção
         System.out.println("Poção Selecionada...");
-        treinador.getPokesal().setHP((treinador.getPokesal().getHP() + 5));
+        treinador.getPokesal().setHpBatalha((treinador.getPokesal().getHpBatalha() + 5));
         System.out.println(treinador.getPokesal().getNome() + " teve 5 pnts de vida restaurados");
         treinador.setItensUso(treinador.getItensUso() + 1);
         pocao.setQuantidades(getQuantidades() - 1);
@@ -47,7 +47,7 @@ public class Mochila {
 
     public void usarSuperPocao(TreinadorPokesal treinador, Mochila superPocao) {
         System.out.println("Super Poção Selecionada...");
-        treinador.getPokesal().setHP((treinador.getPokesal().getHP() + 10));
+        treinador.getPokesal().setHpBatalha((treinador.getPokesal().getHpBatalha() + 10));
         System.out.println(treinador.getPokesal().getNome() + " teve 10 pnts de vida restaurados");
         treinador.setItensUso(treinador.getItensUso() + 1);
         superPocao.setQuantidades(getQuantidades() - 1);
