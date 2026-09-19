@@ -142,4 +142,12 @@ public class Pokesal {
     public int getTurnosSofridos() {
         return turnosSofridos;
     }
+
+    public int getSPDefeito() {
+        return SPDefeito;
+    }
+
+    public void setSPDefeito(int SPDefeito) {
+        this.SPDefeito = SPDefeito;
+    }
 }
