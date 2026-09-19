@@ -29,7 +29,7 @@ public class PokesalBatalha {
                 if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
                 }
-                else if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
+                if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
                 }
                 System.out.println("Pokesal - Temos que formá-los!");
@@ -60,7 +60,7 @@ public class PokesalBatalha {
                 if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
                 }
-                else if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
+                if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
                     tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
                 }
                 System.out.println("Pokesal - Temos que formá-los!");
