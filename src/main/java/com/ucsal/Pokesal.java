@@ -149,7 +149,7 @@ public class Pokesal {
     }
 
     public void setHpBatalha(double hpBatalha) {
-        hpBatalha = hpBatalha;
+        this.hpBatalha = hpBatalha;
     }
 
     public int getTurnosSofridos() {

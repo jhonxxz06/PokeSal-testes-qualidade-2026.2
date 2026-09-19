@@ -27,6 +27,7 @@ public class PokesalBatalha {
     public void batalha() {
         tipoAsfalto.definirVantagens(desafiante1.getPokesal());
         tipoAsfalto.definirVantagens(desafiante2.getPokesal());
+        System.out.println("O terreno da batalha é " + tipoAsfalto);
         int opSelecionada;
 
         if (desafiante1.getPokesal().getSPDefeito() > desafiante2.getPokesal().getSPDefeito()) {
@@ -105,9 +106,9 @@ public class PokesalBatalha {
     private void exibirMenu(TreinadorPokesal atacante) {
         System.out.println("Selecione suas opções Treinador(a) " + atacante.getNome());
         System.out.println("1 - Atacar Oponente " +
-                "\n 2 - Aplicar Efeito Oponente" +
-                "\n 3 - Usar Poção " + atacante.getItensUso() + "/2 " +
-                "\n 4 - Fugir da batalha");
+                "\n2 - Aplicar Efeito Oponente" +
+                "\n3 - Usar Poção " + atacante.getItensUso() + "/2 " +
+                "\n4 - Fugir da batalha");
     }
 
     private void executarEscolha(int opcao, TreinadorPokesal atacante, TreinadorPokesal defensor) {
@@ -119,6 +120,7 @@ public class PokesalBatalha {
                 break;
             case 2:
                 sorteioEfeito(atacante, defensor, ChanceEfeitoATK2);
+                break;
             case 3:
                 atacante.getAcessorios().usarPocao(atacante, atacante.getAcessorios());
                 break;
