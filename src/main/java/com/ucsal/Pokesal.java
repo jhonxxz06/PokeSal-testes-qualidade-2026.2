@@ -48,6 +48,8 @@ public class Pokesal {
                 if(statusAtual == EfeitosStatus.Paralizado){
                     SPDefeito = SPD;
                 }
+                System.out.println("Pokesal " + getNome() + " se livrou dos efeito!");
+                statusAtual = null;
                 turnosSofridos = 0;
             }
         }

@@ -16,41 +16,34 @@ public enum EfeitosStatus {
         this.turnos = turnos;
     }
 
-    /**
-     * 0 ideias de como contar os turnos de efeito
-     * public void ContarTurno(EfeitosStatus efeito) {
-     * efeito.setTurnos(efeito.getTurnos() - 1);
-     * }
-     **/
-
-// Mecanismo de randomizar para não ser toda hora que fica queimado
-// Retirar efeitos após turnos
     public void DefinirEfeitos(Pokesal pokesal) {
 
-        switch (pokesal.getElementosTipagem()) {
-            case Fogo:
+        switch (this) {
+            case Queimado:
                 if (pokesal.getElementosTipagem() == ElementosTipagem.Fogo) {
                     System.out.println("Não sofreu queimadura ");
                 } else {
                     pokesal.setStatusAtual(EfeitosStatus.Queimado);
-
-
+                    System.out.println("Pokesal " + pokesal.getNome() + " foi queimado :c");
                 }
-            case Agua:
+                break;
+            case Paralizado:
                 if (pokesal.getElementosTipagem() == ElementosTipagem.Agua) {
                     System.out.println("Não sofreu paralisia ");
                 } else {
                     pokesal.setStatusAtual(EfeitosStatus.Paralizado);
-
+                    System.out.println("Pokesal " + pokesal.getNome() + " foi paralizado :c");
+                    pokesal.reduzirVelocidade();
                 }
-
-            case Planta:
+                break;
+            case Envenenado:
                 if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
                     System.out.println("Não sofreu envenenamento ");
                 } else {
                     pokesal.setStatusAtual(EfeitosStatus.Paralizado);
-
+                    System.out.println("Pokesal " + pokesal.getNome() + " foi envenenado :c");
                 }
+                break;
         }
     }
 
