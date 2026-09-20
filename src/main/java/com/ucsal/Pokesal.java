@@ -33,17 +33,21 @@ public class Pokesal {
         this.elementosTipagem = elementosTipagem;
     }
 
-    public void pokesalDanoSofrido(ElementosTipagem dano) {
-        if (hP <= 0) {
-            System.out.println("Pokesal derrotado! não pode receber mais dano");
-        }
+    public void pokesalDanoSofrido(Pokesal atacante) {
+       if (hP <= 0) {
+       System.out.println("Pokesal derrotado! não pode receber mais dano");
+       }
 
-        final double danototal = dano.calculoEfetividade(this.elementosTipagem);
-        hpBatalha = hpBatalha - danototal;
-        System.out.println("O dano sofrido foi de: " + danototal);
+       double danototal = atacante.getElementosTipagem().calculoEfetividade(this.elementosTipagem);
 
-        System.out.println("A vida restante é de: " + hpBatalha);
+       if (DanoCritico.sortearCritico(atacante)) {
+       danototal = DanoCritico.aplicarCritico(danototal);
+       }
 
+       hpBatalha = hpBatalha - danototal;
+       System.out.println("O dano sofrido foi de: " + danototal);
+
+       System.out.println("A vida restante é de: " + hpBatalha);
     }
 
     public void contarTurnoEfeito() {

@@ -114,15 +114,14 @@ public class PokesalBatalha {
     private void executarEscolha(int opcao, TreinadorPokesal atacante, TreinadorPokesal defensor) {
         switch (opcao) {
             case 1:
-                defensor.getPokesal().pokesalDanoSofrido(atacante.getPokesal()
-                        .getElementosTipagem());
+                defensor.getPokesal().pokesalDanoSofrido(atacante.getPokesal());
                 sorteioEfeito(atacante, defensor, ChanceEfeitoATK1);
                 break;
             case 2:
                 sorteioEfeito(atacante, defensor, ChanceEfeitoATK2);
                 break;
-            case 3:
-                atacante.getAcessorios().usarPocao(atacante, atacante.getAcessorios());
+
+            case 3:atacante.getAcessorios().usarPocao(atacante, atacante.getAcessorios());
                 break;
             case 4:
                 System.out.println(atacante.getNome() + " fugiu da batalha..."
