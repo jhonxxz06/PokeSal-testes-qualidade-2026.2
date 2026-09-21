@@ -18,32 +18,32 @@ public class Main {
         final String[] resposta1 = new String[2];
 
         final Pokesal[] pokesal = {
-
-                new Pokesal("BulbaSal", 40, "Chicote de videira",
+            new Pokesal("BulbaSal", 40, "Chicote de videira",
                         "Pó venenoso", 20, ElementosTipagem.Planta),
-                new Pokesal("CharSal", 45, "Brasa",
+            new Pokesal("CharSal", 45, "Brasa",
                         "Fogo Fátuo", 19, ElementosTipagem.Fogo),
-                new Pokesal("SquirtSal", 35, "Water Gun",
+            new Pokesal("SquirtSal", 35, "Water Gun",
                         "Abanar da cauda", 21, ElementosTipagem.Agua),
-                new Pokesal("ChikoSal", 40, "Chicote de videira",
+            new Pokesal("ChikoSal", 40, "Chicote de videira",
                         "Pó venenoso", 20, ElementosTipagem.Planta),
-                new Pokesal("CyndaSal", 45, "Brasa",
+            new Pokesal("CyndaSal", 45, "Brasa",
                         "Fogo Fátuo", 19, ElementosTipagem.Fogo),
-                new Pokesal("TotoSal", 35, "Water Gun",
+            new Pokesal("TotoSal", 35, "Water Gun",
                         "Abanar da cauda", 21, ElementosTipagem.Agua)
         };
 
         final Mochila[] mochila = {
-                new Mochila("Poção", "Poção voltada para recuperação após partida", 10),
-                new Mochila("Super Poção", "Poção voltada para maior recuperação de vida", 5),
-                new Mochila("Poção de Fúria", "Aumenta a força em 10% e a velocidade em 20% por um turno", 5),
-                new Mochila("Poção de Força", "Aumenta a força em 25% por um turno", 5)
+            new Mochila("Poção", "Poção voltada para recuperação após partida", 10),
+            new Mochila("Super Poção", "Poção voltada para maior recuperação de vida", 5),
+            new Mochila("Poção de Fúria", "Aumenta a força em 10% " +
+                    "e a velocidade em 20% por um turno", 5),
+            new Mochila("Poção de Força", "Aumenta a força em 25% por um turno", 5)
         };
 
         final TreinadorPokesal[] rivais = {
-                new TreinadorPokesal("Lucas Andrade", pokesal[2], "Alagoinhas", mochila[0]),
-                new TreinadorPokesal("Lázaro Brito", pokesal[5], "Itororó", mochila[1]),
-                new TreinadorPokesal("Patati", pokesal[3], "Salvador", mochila[0])
+            new TreinadorPokesal("Lucas Andrade", pokesal[2], "Alagoinhas", mochila[0]),
+            new TreinadorPokesal("Lázaro Brito", pokesal[5], "Itororó", mochila[1]),
+            new TreinadorPokesal("Patati", pokesal[3], "Salvador", mochila[0])
         };
 
         System.out.println("Bem vindo ao sistema de batalhas pokesal! ");
