@@ -15,26 +15,32 @@ public class PokesalBatalha {
     /**
      * Chance (em porcentagem) do efeito de status ao escolher aplicar efeito.
      */
+
     private static final int ChanceEfeitoATK2 = 75;
     /**
      * Primeiro treinador da batalha.
      */
+
     private final TreinadorPokesal desafiante1;
     /**
      * Segundo treinador da batalha.
      */
+
     private final TreinadorPokesal desafiante2;
     /**
      * Terreno sorteado para a batalha.
      */
+
     private final AsfaltoUcsal tipoAsfalto;
     /**
      * Leitor da entrada do terminal.
      */
+
     Scanner ler = new Scanner(System.in);
     /**
      * Quantidade de turnos já jogados.
      */
+
     private int contadorTurnos = 0;
 
     /**
