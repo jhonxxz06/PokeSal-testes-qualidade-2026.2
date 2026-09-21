@@ -3,27 +3,48 @@ package com.ucsal;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Controla uma batalha entre dois treinadores, turno a turno, no terminal.
+ */
 public class PokesalBatalha {
+
+    /** Leitor da entrada do terminal. */
     Scanner ler = new Scanner(System.in);
 
+    /** Primeiro treinador da batalha. */
     private final TreinadorPokesal desafiante1;
 
+    /** Segundo treinador da batalha. */
     private final TreinadorPokesal desafiante2;
 
+    /** Quantidade de turnos já jogados. */
     private int contadorTurnos = 0;
 
+    /** Terreno sorteado para a batalha. */
     private final AsfaltoUcsal tipoAsfalto;
 
+    /** Chance (em porcentagem) do efeito de status após um ataque. */
     private static final int ChanceEfeitoATK1 = 10;
 
+    /** Chance (em porcentagem) do efeito de status ao escolher aplicar efeito. */
     private static final int ChanceEfeitoATK2 = 75;
 
+    /**
+     * Cria uma batalha e sorteia o terreno.
+     *
+     * @param desafiante1 primeiro treinador
+     * @param desafiante2 segundo treinador
+     */
     public PokesalBatalha(TreinadorPokesal desafiante1, TreinadorPokesal desafiante2) {
         this.desafiante1 = desafiante1;
         this.desafiante2 = desafiante2;
         this.tipoAsfalto = AsfaltoUcsal.escolherAsfalto();
     }
 
+    /**
+     * Executa a batalha até um dos Pokesais ficar sem vida. Começa o Pokesal mais rápido
+     * e, ao final, exibe o vencedor.
+     */
     public void batalha() {
         tipoAsfalto.definirVantagens(desafiante1.getPokesal());
         tipoAsfalto.definirVantagens(desafiante2.getPokesal());
@@ -47,12 +68,14 @@ public class PokesalBatalha {
                     opSelecionada = ler.nextInt();
                     executarEscolha(opSelecionada, desafiante1, desafiante2);
                     desafiante1.getPokesal().contarTurnoEfeito();
+                    desafiante1.getPokesal().contarTurnoPocao();
                     contadorTurnos += 1;
                 } else {
                     exibirMenu(desafiante2);
                     opSelecionada = ler.nextInt();
                     executarEscolha(opSelecionada, desafiante2, desafiante1);
                     desafiante2.getPokesal().contarTurnoEfeito();
+                    desafiante2.getPokesal().contarTurnoPocao();
                     contadorTurnos += 1;
                 }
             }
@@ -80,6 +103,7 @@ public class PokesalBatalha {
                     opSelecionada = ler.nextInt();
                     executarEscolha(opSelecionada, desafiante2, desafiante1);
                     desafiante2.getPokesal().contarTurnoEfeito();
+                    desafiante2.getPokesal().contarTurnoPocao();
                     contadorTurnos += 1;
                 }
                 else {
@@ -87,6 +111,7 @@ public class PokesalBatalha {
                     opSelecionada = ler.nextInt();
                     executarEscolha(opSelecionada, desafiante1, desafiante2);
                     desafiante1.getPokesal().contarTurnoEfeito();
+                    desafiante1.getPokesal().contarTurnoPocao();
                     contadorTurnos += 1;
                 }
             }
@@ -103,6 +128,11 @@ public class PokesalBatalha {
 
     }
 
+    /**
+     * Exibe o menu principal do turno.
+     *
+     * @param atacante treinador que joga o turno
+     */
     private void exibirMenu(TreinadorPokesal atacante) {
         System.out.println("Selecione suas opções Treinador(a) " + atacante.getNome());
         System.out.println("1 - Atacar Oponente " +
@@ -111,6 +141,13 @@ public class PokesalBatalha {
                 "\n4 - Fugir da batalha");
     }
 
+    /**
+     * Executa a opção escolhida no menu principal.
+     *
+     * @param opcao opção escolhida
+     * @param atacante treinador que joga o turno
+     * @param defensor treinador que recebe a ação
+     */
     private void executarEscolha(int opcao, TreinadorPokesal atacante, TreinadorPokesal defensor) {
         switch (opcao) {
             case 1:
@@ -121,7 +158,8 @@ public class PokesalBatalha {
                 sorteioEfeito(atacante, defensor, ChanceEfeitoATK2);
                 break;
 
-            case 3:atacante.getAcessorios().usarPocao(atacante, atacante.getAcessorios());
+            case 3:
+                usarPocao(atacante);
                 break;
             case 4:
                 System.out.println(atacante.getNome() + " fugiu da batalha..."
@@ -131,6 +169,32 @@ public class PokesalBatalha {
         }
     }
 
+    /**
+     * Usa o item da mochila do treinador de acordo com o nome do item
+     * (poção de fúria, poção de força, super poção ou poção comum).
+     *
+     * @param atacante treinador que está usando o item
+     */
+    private void usarPocao(TreinadorPokesal atacante) {
+        final Mochila pocao = atacante.getAcessorios();
+
+        if (pocao.getItem().equals("Poção de Fúria")) {
+            pocao.usarPocaoFuria(atacante, pocao);
+        } else if (pocao.getItem().equals("Poção de Força")) {
+            pocao.usarPocaoForca(atacante, pocao);
+        } else if (pocao.getItem().equals("Super Poção")) {
+            pocao.usarSuperPocao(atacante, pocao);
+        } else {
+            pocao.usarPocao(atacante, pocao);
+        }
+    }
+
+    /**
+     * Define o efeito de status que o tipo do atacante aplica.
+     *
+     * @param atacante tipo do Pokesal atacante
+     * @return efeito de status do tipo, ou {@code null} se não houver
+     */
     private EfeitosStatus definirEfeitoTipo(ElementosTipagem atacante) {
         switch (atacante) {
             case Fogo:
@@ -144,6 +208,14 @@ public class PokesalBatalha {
         }
     }
 
+    /**
+     * Sorteia se o efeito de status será aplicado ao defensor. Nada acontece se
+     * o defensor já estiver com algum efeito.
+     *
+     * @param atacante treinador que aplica o efeito
+     * @param defensor treinador que pode receber o efeito
+     * @param chanceAcontecer chance (em porcentagem) de o efeito acontecer
+     */
     private void sorteioEfeito(TreinadorPokesal atacante,
                                TreinadorPokesal defensor, int chanceAcontecer) {
         final EfeitosStatus efeito = definirEfeitoTipo(atacante.getPokesal().getElementosTipagem());

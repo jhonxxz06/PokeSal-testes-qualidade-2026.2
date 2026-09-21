@@ -1,21 +1,54 @@
 package com.ucsal;
 
+/**
+ * Efeitos de status que podem ser aplicados a um Pokesal, com sua duração em turnos.
+ */
 public enum EfeitosStatus {
-    Queimado(3), Envenenado(4), Paralizado(3);
+
+    /** Causa dano de queimadura e reduz a velocidade. */
+    Queimado(3),
+
+    /** Causa dano de envenenamento. */
+    Envenenado(4),
+
+    /** Reduz a velocidade do Pokesal. */
+    Paralizado(3);
+
+    /** Quantidade de turnos em que o efeito permanece. */
     private int turnos;
 
+    /**
+     * Cria um efeito com a duração informada.
+     *
+     * @param turnos quantidade de turnos do efeito
+     */
     EfeitosStatus(int turnos) {
         this.turnos = turnos;
     }
 
+    /**
+     * Retorna a duração do efeito.
+     *
+     * @return quantidade de turnos do efeito
+     */
     public int getTurnos() {
         return turnos;
     }
 
+    /**
+     * Altera a duração do efeito.
+     *
+     * @param turnos nova quantidade de turnos do efeito
+     */
     public void setTurnos(int turnos) {
         this.turnos = turnos;
     }
 
+    /**
+     * Aplica o efeito ao Pokesal, respeitando as imunidades por tipo.
+     *
+     * @param pokesal Pokesal que receberá o efeito
+     */
     public void definirEfeitos(Pokesal pokesal) {
 
         switch (this) {
