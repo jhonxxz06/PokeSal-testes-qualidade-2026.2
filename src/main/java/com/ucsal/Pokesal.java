@@ -6,53 +6,79 @@ package com.ucsal;
  */
 public class Pokesal {
 
-    /** Vida máxima do Pokesal. */
+    /**
+     * Vida máxima do Pokesal.
+     */
     private double hP;
 
-    /** Vida atual do Pokesal durante a batalha. */
+    /**
+     * Vida atual do Pokesal durante a batalha.
+     */
     private double hpBatalha = hP;
 
-    /** Nome do Pokesal. */
+    /**
+     * Nome do Pokesal.
+     */
     private String nome;
 
-    /** Nome do primeiro ataque. */
+    /**
+     * Nome do primeiro ataque.
+     */
     private String atk;
 
-    /** Nome do segundo ataque. */
+    /**
+     * Nome do segundo ataque.
+     */
     private String atk2;
 
-    /** Velocidade base do Pokesal. */
+    /**
+     * Velocidade base do Pokesal.
+     */
     private int spd;
 
-    /** Velocidade atual, considerando os efeitos de status e de poção. */
+    /**
+     * Velocidade atual, considerando os efeitos de status e de poção.
+     */
     private int spdEfeito = spd;
 
-    /** Tipo (elemento) do Pokesal. */
+    /**
+     * Tipo (elemento) do Pokesal.
+     */
     private ElementosTipagem elementosTipagem;
 
-    /** Efeito de status atual, ou {@code null} quando não há efeito. */
+    /**
+     * Efeito de status atual, ou {@code null} quando não há efeito.
+     */
     private EfeitosStatus statusAtual = null;
 
-    /** Quantidade de turnos em que o Pokesal já sofreu o efeito de status atual. */
+    /**
+     * Quantidade de turnos em que o Pokesal já sofreu o efeito de status atual.
+     */
     private int turnosSofridos = 0;
 
-    /** Multiplicador de força causado pela poção (1.0 quando não há poção ativa). */
+    /**
+     * Multiplicador de força causado pela poção (1.0 quando não há poção ativa).
+     */
     private double forcaEfeito = 1.0;
 
-    /** Turnos que restam do efeito da poção ativa. */
+    /**
+     * Turnos que restam do efeito da poção ativa.
+     */
     private int turnosPocao = 0;
 
-    /** Indica se a poção foi usada no turno atual, para o efeito valer no turno seguinte. */
+    /**
+     * Indica se a poção foi usada no turno atual, para o efeito valer no turno seguinte.
+     */
     private boolean pocaoUsadaNesteTurno = false;
 
     /**
      * Cria um Pokesal.
      *
-     * @param nome nome do Pokesal
-     * @param hP vida máxima
-     * @param atk nome do primeiro ataque
-     * @param atk2 nome do segundo ataque
-     * @param spd velocidade
+     * @param nome             nome do Pokesal
+     * @param hP               vida máxima
+     * @param atk              nome do primeiro ataque
+     * @param atk2             nome do segundo ataque
+     * @param spd              velocidade
      * @param elementosTipagem tipo (elemento) do Pokesal
      */
     public Pokesal(String nome, double hP, String atk, String atk2,
@@ -103,8 +129,7 @@ public class Pokesal {
                 // velocidade fixa (acho que não é necessário)
                 System.out.println("Pokesal " + getNome() + " sofreu os efeitos");
                 sofrerDanoEfeitos();
-            }
-            else {
+            } else {
                 if (statusAtual == EfeitosStatus.Paralizado) {
                     spdEfeito = spd;
                 }
@@ -175,8 +200,7 @@ public class Pokesal {
             System.out.println(getNome() +
                     " sofreu com queimadura!E teve sua velocidade reduzida...");
             hpBatalha = hpBatalha - (getHP() * 0.1);
-        }
-        else if (statusAtual == EfeitosStatus.Envenenado) {
+        } else if (statusAtual == EfeitosStatus.Envenenado) {
             System.out.println(getNome() + " sofreu com envenenamento");
             hpBatalha = hpBatalha - (getHP() * 0.2);
         }

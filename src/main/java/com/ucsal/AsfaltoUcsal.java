@@ -7,24 +7,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * o dano de um tipo de Pokesal ou a recuperação de vida do tipo Planta.
  */
 public enum AsfaltoUcsal {
-
-    /** Asfalto quente, interfere no dano do tipo Fogo. */
-    AsfaltoQuente(0.15),
-
-    /** Piso escorregadio, interfere no dano do tipo Água. */
-    PisoEscorregadio(0.10),
-
-    /** Canteiro central, recupera vida dos Pokesais do tipo Planta. */
-    CanteiroCentral(0.05);
-
-    /** Percentual aplicado pelo terreno. */
+    AsfaltoQuente(0.15), PisoEscorregadio(0.10), CanteiroCentral(0.05);
     private final double percentual;
 
-    /**
-     * Cria um terreno com o percentual informado.
-     *
-     * @param percentual percentual aplicado pelo terreno
-     */
     AsfaltoUcsal(double percentual) {
         this.percentual = percentual;
     }
@@ -56,11 +41,11 @@ public enum AsfaltoUcsal {
         switch (this) {
             case AsfaltoQuente:
                 ElementosTipagem.Fogo.setDano(ElementosTipagem.Fogo.getDano()
-                        * AsfaltoQuente.percentual);
+                        * (1 + AsfaltoQuente.percentual));
                 break;
             case PisoEscorregadio:
                 ElementosTipagem.Agua.setDano(ElementosTipagem.Agua.getDano()
-                        * PisoEscorregadio.percentual);
+                        * (1 + PisoEscorregadio.percentual));
                 break;
         }
     }
@@ -71,9 +56,11 @@ public enum AsfaltoUcsal {
      * @param pokesal Pokesal que pode recuperar vida
      */
     public void aplicarRecuperacaoHpPlanta(Pokesal pokesal) {
-        if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
-            pokesal.setHpBatalha(pokesal.getHpBatalha() +
-                    (pokesal.getHpBatalha() * CanteiroCentral.percentual));
+        if (this == CanteiroCentral
+                && pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
+            final double hpRecuperado = pokesal.getHpBatalha()
+                    + (pokesal.getHP() * CanteiroCentral.percentual);
+            pokesal.setHpBatalha(Math.min(hpRecuperado, pokesal.getHP()));
         }
     }
 

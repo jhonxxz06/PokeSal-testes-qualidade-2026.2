@@ -22,6 +22,7 @@
             </map>
           </option>
         </ConfigurationLocation>
+        <ConfigurationLocation id="a37cacaa-d8ca-4ba4-99ab-03d6cec94b8e" type="LOCAL_FILE" scope="All" description="CheckStyle">C:\Users\lucas\Downloads\checkstyle-teste.xml</ConfigurationLocation>
         <ConfigurationLocation id="9b9f4dd4-0f0f-4d9a-a6ca-42531ea459b7" type="LOCAL_FILE" scope="All" description="TesteCheckstyle">D:\João Pedro\Downloads\checkstyle-teste.xml</ConfigurationLocation>
       </list>
     </option>

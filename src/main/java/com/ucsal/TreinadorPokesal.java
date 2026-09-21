@@ -5,27 +5,37 @@ package com.ucsal;
  */
 public class TreinadorPokesal {
 
-    /** Nome do treinador. */
+    /**
+     * Nome do treinador.
+     */
     private String nome;
 
-    /** Pokesal do treinador. */
+    /**
+     * Pokesal do treinador.
+     */
     private Pokesal pokesal;
 
-    /** Cidade de origem do treinador. */
+    /**
+     * Cidade de origem do treinador.
+     */
     private String cidade;
 
-    /** Quantidade de itens já usados pelo treinador. */
+    /**
+     * Quantidade de itens já usados pelo treinador.
+     */
     private int itensUso = 0;
 
-    /** Mochila (item) do treinador. */
+    /**
+     * Mochila (item) do treinador.
+     */
     private Mochila acessorios;
 
     /**
      * Cria um treinador.
      *
-     * @param nome nome do treinador
-     * @param pokesal Pokesal do treinador
-     * @param cidade cidade de origem do treinador
+     * @param nome       nome do treinador
+     * @param pokesal    Pokesal do treinador
+     * @param cidade     cidade de origem do treinador
      * @param acessorios mochila do treinador
      */
     public TreinadorPokesal(String nome, Pokesal pokesal, String cidade, Mochila acessorios) {

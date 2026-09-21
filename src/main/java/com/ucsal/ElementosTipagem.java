@@ -68,7 +68,7 @@ public enum ElementosTipagem {
      */
     public double calculoEfetividade(ElementosTipagem adversario) {
         if (this == adversario) {
-            return 1;
+            return dano;
         }
         switch (this) {
             case Fogo:
@@ -90,10 +90,9 @@ public enum ElementosTipagem {
                     return (Planta.dano * multiplicadorNegativo);
                 }
         }
-        return 1;
+        return dano;
     }
 
-    // quanto mais rapido o pokesal, maior a chance de acertar um ponto fraco
     /**
      * Calcula a chance de crítico do atacante. Quanto mais rápido o Pokesal,
      * maior a chance de acertar um ponto fraco.

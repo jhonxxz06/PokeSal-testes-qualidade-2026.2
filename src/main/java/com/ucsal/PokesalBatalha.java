@@ -8,26 +8,34 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class PokesalBatalha {
 
-    /** Leitor da entrada do terminal. */
-    Scanner ler = new Scanner(System.in);
-
-    /** Primeiro treinador da batalha. */
-    private final TreinadorPokesal desafiante1;
-
-    /** Segundo treinador da batalha. */
-    private final TreinadorPokesal desafiante2;
-
-    /** Quantidade de turnos já jogados. */
-    private int contadorTurnos = 0;
-
-    /** Terreno sorteado para a batalha. */
-    private final AsfaltoUcsal tipoAsfalto;
-
-    /** Chance (em porcentagem) do efeito de status após um ataque. */
+    /**
+     * Chance (em porcentagem) do efeito de status após um ataque.
+     */
     private static final int ChanceEfeitoATK1 = 10;
-
-    /** Chance (em porcentagem) do efeito de status ao escolher aplicar efeito. */
+    /**
+     * Chance (em porcentagem) do efeito de status ao escolher aplicar efeito.
+     */
     private static final int ChanceEfeitoATK2 = 75;
+    /**
+     * Primeiro treinador da batalha.
+     */
+    private final TreinadorPokesal desafiante1;
+    /**
+     * Segundo treinador da batalha.
+     */
+    private final TreinadorPokesal desafiante2;
+    /**
+     * Terreno sorteado para a batalha.
+     */
+    private final AsfaltoUcsal tipoAsfalto;
+    /**
+     * Leitor da entrada do terminal.
+     */
+    Scanner ler = new Scanner(System.in);
+    /**
+     * Quantidade de turnos já jogados.
+     */
+    private int contadorTurnos = 0;
 
     /**
      * Cria uma batalha e sorteia o terreno.
@@ -82,13 +90,11 @@ public class PokesalBatalha {
             if (desafiante1.getPokesal().getHpBatalha() <= 0) {
                 System.out.println("O oponente " + desafiante2.getNome() +
                         " do Pokesal " + desafiante2.getPokesal().getNome() + " foi o vencedor");
-            }
-            else {
+            } else {
                 System.out.println("O oponente " + desafiante1.getNome() +
                         " do Pokesal " + desafiante1.getPokesal().getNome() + " foi o vencedor");
             }
-        }
-        else {
+        } else {
             while (desafiante2.getPokesal().getHpBatalha() > 0
                     && desafiante1.getPokesal().getHpBatalha() > 0) {
                 if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
@@ -105,8 +111,7 @@ public class PokesalBatalha {
                     desafiante2.getPokesal().contarTurnoEfeito();
                     desafiante2.getPokesal().contarTurnoPocao();
                     contadorTurnos += 1;
-                }
-                else {
+                } else {
                     exibirMenu(desafiante1);
                     opSelecionada = ler.nextInt();
                     executarEscolha(opSelecionada, desafiante1, desafiante2);
@@ -144,7 +149,7 @@ public class PokesalBatalha {
     /**
      * Executa a opção escolhida no menu principal.
      *
-     * @param opcao opção escolhida
+     * @param opcao    opção escolhida
      * @param atacante treinador que joga o turno
      * @param defensor treinador que recebe a ação
      */
@@ -212,8 +217,8 @@ public class PokesalBatalha {
      * Sorteia se o efeito de status será aplicado ao defensor. Nada acontece se
      * o defensor já estiver com algum efeito.
      *
-     * @param atacante treinador que aplica o efeito
-     * @param defensor treinador que pode receber o efeito
+     * @param atacante        treinador que aplica o efeito
+     * @param defensor        treinador que pode receber o efeito
      * @param chanceAcontecer chance (em porcentagem) de o efeito acontecer
      */
     private void sorteioEfeito(TreinadorPokesal atacante,

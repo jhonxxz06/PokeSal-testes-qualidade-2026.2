@@ -5,21 +5,27 @@ package com.ucsal;
  */
 public class Mochila {
 
-    /** Nome do item. */
+    /**
+     * Nome do item.
+     */
     private String item;
 
-    /** Descrição do item. */
+    /**
+     * Descrição do item.
+     */
     private String itemDescricao;
 
-    /** Quantidade de unidades disponíveis do item. */
+    /**
+     * Quantidade de unidades disponíveis do item.
+     */
     private int quantidades;
 
     /**
      * Cria um item da mochila.
      *
-     * @param item nome do item
+     * @param item          nome do item
      * @param itemDescricao descrição do item
-     * @param quantidades quantidade de unidades disponíveis
+     * @param quantidades   quantidade de unidades disponíveis
      */
     public Mochila(String item, String itemDescricao, int quantidades) {
         this.item = item;
@@ -85,7 +91,7 @@ public class Mochila {
      * Usa uma poção comum, recuperando pontos de vida do Pokesal do treinador.
      *
      * @param treinador treinador que está usando a poção
-     * @param pocao item da mochila que será consumido
+     * @param pocao     item da mochila que será consumido
      */
     public void usarPocao(TreinadorPokesal treinador, Mochila pocao) {
         // ver um verificador de poção
@@ -105,7 +111,7 @@ public class Mochila {
     /**
      * Usa uma poção de fúria: o Pokesal ganha 10% de força e 20% de velocidade por um turno.
      *
-     * @param treinador treinador que está usando a poção de fúria
+     * @param treinador  treinador que está usando a poção de fúria
      * @param pocaoFuria item da mochila que será consumido
      */
     public void usarPocaoFuria(TreinadorPokesal treinador, Mochila pocaoFuria) {
@@ -122,7 +128,7 @@ public class Mochila {
     /**
      * Usa uma poção de força: o Pokesal ganha 25% de força por um turno.
      *
-     * @param treinador treinador que está usando a poção de força
+     * @param treinador  treinador que está usando a poção de força
      * @param pocaoForca item da mochila que será consumido
      */
     public void usarPocaoForca(TreinadorPokesal treinador, Mochila pocaoForca) {
@@ -139,7 +145,7 @@ public class Mochila {
     /**
      * Usa uma super poção, recuperando mais pontos de vida do Pokesal do treinador.
      *
-     * @param treinador treinador que está usando a super poção
+     * @param treinador  treinador que está usando a super poção
      * @param superPocao item da mochila que será consumido
      */
     public void usarSuperPocao(TreinadorPokesal treinador, Mochila superPocao) {

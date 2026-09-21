@@ -5,16 +5,24 @@ package com.ucsal;
  */
 public enum EfeitosStatus {
 
-    /** Causa dano de queimadura e reduz a velocidade. */
+    /**
+     * Causa dano de queimadura e reduz a velocidade.
+     */
     Queimado(3),
 
-    /** Causa dano de envenenamento. */
+    /**
+     * Causa dano de envenenamento.
+     */
     Envenenado(4),
 
-    /** Reduz a velocidade do Pokesal. */
+    /**
+     * Reduz a velocidade do Pokesal.
+     */
     Paralizado(3);
 
-    /** Quantidade de turnos em que o efeito permanece. */
+    /**
+     * Quantidade de turnos em que o efeito permanece.
+     */
     private int turnos;
 
     /**
