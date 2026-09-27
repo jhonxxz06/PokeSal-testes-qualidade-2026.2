@@ -81,7 +81,7 @@ public enum EfeitosStatus {
                 if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
                     System.out.println("Não sofreu envenenamento ");
                 } else {
-                    pokesal.setStatusAtual(EfeitosStatus.Paralizado);
+                    pokesal.setStatusAtual(EfeitosStatus.Envenenado);
                     System.out.println("Pokesal " + pokesal.getNome() + " foi envenenado :c");
                 }
                 break;

@@ -56,7 +56,21 @@ public class Main {
                     " (Tipo: " + pokesal[i].getElementosTipagem() + ")");
         }
         System.out.print("Digite o número correspondente: ");
-        final int opcaoPokesal = ler.nextInt();
+        int opcaoPokesal = 0;
+        boolean valido = false;
+        while (!valido) {
+            if (ler.hasNextInt()) {
+                opcaoPokesal = ler.nextInt();
+                if (opcaoPokesal >= 1 && opcaoPokesal <= pokesal.length) {
+                    valido = true;
+                } else {
+                    System.out.println("Número fora do intervalo! Digite de 1 a " + pokesal.length + ": ");
+                }
+            } else {
+                System.out.println("Digite um número válido: ");
+                ler.next();
+            }
+        }
         ler.nextLine();
 
         final Pokesal pokesalEscolhido = pokesal[opcaoPokesal - 1];
@@ -67,18 +81,29 @@ public class Main {
 
         System.out.println("Qual mochila deseja inicial deseja?");
 
-        System.out.println("1 - " + mochila[0].getItem() + " " + mochila[0].getItemDescricao()
-                + " com o total de " + mochila[0].getQuantidades() + " Itens"
-                + "\n2 - " + mochila[1].getItem() + " " + mochila[1].getItemDescricao()
-                + " com total de " + mochila[1].getQuantidades() + " Itens"
-                + "\n3 - " + mochila[2].getItem() + " " + mochila[2].getItemDescricao()
-                + " com total de " + mochila[2].getQuantidades() + " Itens"
-                + "\n4 - " + mochila[3].getItem() + " " + mochila[3].getItemDescricao()
-                + " com total de " + mochila[3].getQuantidades() + " Itens");
-
+        String menuMochila = "";
+        for (int i = 0; i < mochila.length; i++) {
+            menuMochila += (i + 1) + " - " + mochila[i].getItem() + " " + mochila[i].getItemDescricao()
+                    + " com total de " + mochila[i].getQuantidades() + " Itens\n";
+        }
+        System.out.println(menuMochila);
         System.out.print("Digite o número correspondente: ");
 
-        final int opcaoMochila = ler.nextInt();
+        int opcaoMochila = 0;
+        boolean validoMochila = false;
+        while (!validoMochila) {
+            if (ler.hasNextInt()) {
+                opcaoMochila = ler.nextInt();
+                if (opcaoMochila >= 1 && opcaoMochila <= mochila.length) {
+                    validoMochila = true;
+                } else {
+                    System.out.println("Número fora do intervalo! Digite de 1 a " + mochila.length + ": ");
+                }
+            } else {
+                System.out.println("Digite um número válido: ");
+                ler.next();
+            }
+        }
         ler.nextLine();
 
         final Mochila mochilaEscolhida = mochila[opcaoMochila - 1];

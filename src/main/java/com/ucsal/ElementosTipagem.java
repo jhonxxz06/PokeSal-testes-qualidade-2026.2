@@ -77,18 +77,21 @@ public enum ElementosTipagem {
                 } else if (adversario == Agua) {
                     return (Fogo.dano * multiplicadorNegativo);
                 }
+                break;
             case Agua:
                 if (adversario == Fogo) {
                     return (Agua.dano * multiplicadorPositivo);
                 } else if (adversario == Planta) {
                     return (Agua.dano * multiplicadorNegativo);
                 }
+                break;
             case Planta:
                 if (adversario == Agua) {
                     return (Planta.dano * multiplicadorPositivo);
                 } else if (adversario == Fogo) {
                     return (Planta.dano * multiplicadorNegativo);
                 }
+                break;
         }
         return dano;
     }
@@ -123,7 +126,7 @@ public enum ElementosTipagem {
      * @return dano após o multiplicador de crítico
      */
     public static double aplicarCritico(double dano) {
-        System.out.println("Acertou um golpe crÃtico!");
+        System.out.println("Acertou um golpe crítico!");
         return dano * MultiplicadorCritico;
     }
 }

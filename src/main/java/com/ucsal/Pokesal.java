@@ -14,7 +14,7 @@ public class Pokesal {
     /**
      * Vida atual do Pokesal durante a batalha.
      */
-    private double hpBatalha = hP;
+    private double hpBatalha;
 
     /**
      * Nome do Pokesal.
@@ -39,7 +39,7 @@ public class Pokesal {
     /**
      * Velocidade atual, considerando os efeitos de status e de poção.
      */
-    private int spdEfeito = spd;
+    private int spdEfeito;
 
     /**
      * Tipo (elemento) do Pokesal.
@@ -100,8 +100,9 @@ public class Pokesal {
      * @param atacante Pokesal que está atacando
      */
     public void pokesalDanoSofrido(Pokesal atacante) {
-        if (hP <= 0) {
-            System.out.println("Pokesal derrotado! não pode receber mais dano");
+        if (hpBatalha <= 0) {
+           System.out.println("Pokesal derrotado! não pode receber mais dano");
+           return;
         }
 
         double danototal = atacante.getElementosTipagem().calculoEfetividade(this.elementosTipagem);

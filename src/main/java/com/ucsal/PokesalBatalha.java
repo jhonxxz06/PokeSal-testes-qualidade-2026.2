@@ -63,80 +63,39 @@ public class PokesalBatalha {
         tipoAsfalto.definirVantagens(desafiante1.getPokesal());
         tipoAsfalto.definirVantagens(desafiante2.getPokesal());
         System.out.println("O terreno da batalha é " + tipoAsfalto);
+
+        TreinadorPokesal primeiro = desafiante1.getPokesal().getSPDefeito() > desafiante2.getPokesal().getSPDefeito()
+                ? desafiante1 : desafiante2;
+        TreinadorPokesal segundo = (primeiro == desafiante1) ? desafiante2 : desafiante1;
+
+        executarBatalha(primeiro, segundo);
+    }
+
+    private void executarBatalha(TreinadorPokesal primeiro, TreinadorPokesal segundo) {
         int opSelecionada;
-
-        if (desafiante1.getPokesal().getSPDefeito() > desafiante2.getPokesal().getSPDefeito()) {
-
-            while (desafiante1.getPokesal().getHpBatalha() > 0
-                    && desafiante2.getPokesal().getHpBatalha() > 0) {
-                if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
-                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
-                }
-                if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
-                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
-                }
-                System.out.println("Pokesal - Temos que formá-los!");
-
-                if (contadorTurnos % 2 == 0) {
-                    exibirMenu(desafiante1);
-                    opSelecionada = ler.nextInt();
-                    executarEscolha(opSelecionada, desafiante1, desafiante2);
-                    desafiante1.getPokesal().contarTurnoEfeito();
-                    desafiante1.getPokesal().contarTurnoPocao();
-                    contadorTurnos += 1;
-                } else {
-                    exibirMenu(desafiante2);
-                    opSelecionada = ler.nextInt();
-                    executarEscolha(opSelecionada, desafiante2, desafiante1);
-                    desafiante2.getPokesal().contarTurnoEfeito();
-                    desafiante2.getPokesal().contarTurnoPocao();
-                    contadorTurnos += 1;
-                }
+        while (primeiro.getPokesal().getHpBatalha() > 0 && segundo.getPokesal().getHpBatalha() > 0) {
+            if (primeiro.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
+                tipoAsfalto.aplicarRecuperacaoHpPlanta(primeiro.getPokesal());
             }
-            if (desafiante1.getPokesal().getHpBatalha() <= 0) {
-                System.out.println("O oponente " + desafiante2.getNome() +
-                        " do Pokesal " + desafiante2.getPokesal().getNome() + " foi o vencedor");
-            } else {
-                System.out.println("O oponente " + desafiante1.getNome() +
-                        " do Pokesal " + desafiante1.getPokesal().getNome() + " foi o vencedor");
+            if (segundo.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
+                tipoAsfalto.aplicarRecuperacaoHpPlanta(segundo.getPokesal());
             }
-        } else {
-            while (desafiante2.getPokesal().getHpBatalha() > 0
-                    && desafiante1.getPokesal().getHpBatalha() > 0) {
-                if (desafiante1.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
-                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante1.getPokesal());
-                }
-                if (desafiante2.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
-                    tipoAsfalto.aplicarRecuperacaoHpPlanta(desafiante2.getPokesal());
-                }
-                System.out.println("Pokesal - Temos que formá-los!");
-                if (contadorTurnos % 2 == 0) {
-                    exibirMenu(desafiante2);
-                    opSelecionada = ler.nextInt();
-                    executarEscolha(opSelecionada, desafiante2, desafiante1);
-                    desafiante2.getPokesal().contarTurnoEfeito();
-                    desafiante2.getPokesal().contarTurnoPocao();
-                    contadorTurnos += 1;
-                } else {
-                    exibirMenu(desafiante1);
-                    opSelecionada = ler.nextInt();
-                    executarEscolha(opSelecionada, desafiante1, desafiante2);
-                    desafiante1.getPokesal().contarTurnoEfeito();
-                    desafiante1.getPokesal().contarTurnoPocao();
-                    contadorTurnos += 1;
-                }
-            }
+            System.out.println("Pokesal - Temos que formá-los!");
 
-            if (desafiante1.getPokesal().getHpBatalha() <= 0) {
-                System.out.println("O oponente " + desafiante2.getNome() +
-                        " do Pokesal " + desafiante2.getPokesal().getNome() + " foi o vencedor");
-            } else {
-                System.out.println("O oponente " + desafiante1.getNome() +
-                        " do Pokesal " + desafiante1.getPokesal().getNome() + " foi o vencedor");
+            TreinadorPokesal atacanteDaVez = (contadorTurnos % 2 == 0) ? primeiro : segundo;
+            TreinadorPokesal defensorDaVez  = (contadorTurnos % 2 == 0) ? segundo : primeiro;
 
-            }
+            exibirMenu(atacanteDaVez);
+            opSelecionada = ler.nextInt();
+            executarEscolha(opSelecionada, atacanteDaVez, defensorDaVez);
+            atacanteDaVez.getPokesal().contarTurnoEfeito();
+            atacanteDaVez.getPokesal().contarTurnoPocao();
+            contadorTurnos += 1;
         }
 
+        TreinadorPokesal vencedor = primeiro.getPokesal().getHpBatalha() <= 0 ? segundo : primeiro;
+        System.out.println("O oponente " + vencedor.getNome() +
+                " do Pokesal " + vencedor.getPokesal().getNome() + " foi o vencedor");
     }
 
     /**
@@ -170,6 +129,10 @@ public class PokesalBatalha {
                 break;
 
             case 3:
+                if (atacante.getItensUso()>=2){
+                    System.out.println("Limite de poções por batalha atingido!");
+                    break;
+                }
                 usarPocao(atacante);
                 break;
             case 4:
@@ -177,6 +140,8 @@ public class PokesalBatalha {
                         + defensor.getNome() + " venceu...");
                 atacante.getPokesal().setHpBatalha(0);
                 break;
+            default:
+                System.out.println("Opção inválida, turno perdido!");
         }
     }
 
