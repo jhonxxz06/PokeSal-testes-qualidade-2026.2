@@ -1,10 +1,13 @@
 package com.ucsal;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Criatura que participa das batalhas, com vida, velocidade, ataques, tipo, status
  * e efeitos temporários de poção.
  */
 public class Pokesal {
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     /**
      * Vida máxima do Pokesal.
@@ -101,7 +104,7 @@ public class Pokesal {
      */
     public void pokesalDanoSofrido(Pokesal atacante) {
         if (hpBatalha <= 0) {
-           System.out.println("Pokesal derrotado! não pode receber mais dano");
+            logger.warning("Pokesal derrotado! não pode receber mais dano");
            return;
         }
 
@@ -113,9 +116,9 @@ public class Pokesal {
         }
 
         hpBatalha = hpBatalha - danototal;
-        System.out.println("O dano sofrido foi de: " + danototal);
+        logger.log(Level.INFO, "O dano sofrido foi de: {0}", danototal);
 
-        System.out.println("A vida restante é de: " + hpBatalha);
+        logger.log(Level.INFO, "A vida restante é de: {0}", hpBatalha);
     }
 
     /**
@@ -128,13 +131,13 @@ public class Pokesal {
                 turnosSofridos += 1;
                 // fazer a diferença de sofrer dano ou a redução de
                 // velocidade fixa (acho que não é necessário)
-                System.out.println("Pokesal " + getNome() + " sofreu os efeitos");
+                logger.info("Pokesal " + getNome() + " sofreu os efeitos");
                 sofrerDanoEfeitos();
             } else {
-                if (statusAtual == EfeitosStatus.Paralizado) {
+                if (statusAtual == EfeitosStatus.PARALIZADO) {
                     spdEfeito = spd;
                 }
-                System.out.println("Pokesal " + getNome() + " se livrou dos efeito!");
+                logger.info("Pokesal " + getNome() + " se livrou dos efeito!");
                 statusAtual = null;
                 turnosSofridos = 0;
             }
@@ -150,8 +153,8 @@ public class Pokesal {
         turnosPocao = 1;
         pocaoUsadaNesteTurno = true;
 
-        System.out.println(getNome() + " usou a Poção de Fúria!");
-        System.out.println("Força aumentada em 10% e velocidade em 20% por 1 turno.");
+        logger.info(getNome() + " usou a Poção de Fúria!");
+        logger.info("Força aumentada em 10% e velocidade em 20% por 1 turno.");
     }
 
     /**
@@ -162,8 +165,8 @@ public class Pokesal {
         turnosPocao = 1;
         pocaoUsadaNesteTurno = true;
 
-        System.out.println(getNome() + " usou a Poção de Força!");
-        System.out.println("Força aumentada em 25% por 1 turno.");
+        logger.info(getNome() + " usou a Poção de Força!");
+        logger.info("Força aumentada em 25% por 1 turno.");
     }
 
     /**
@@ -180,7 +183,7 @@ public class Pokesal {
             turnosPocao = 0;
             forcaEfeito = 1.0;
             spdEfeito = spd;
-            System.out.println("O efeito da poção acabou!");
+            logger.info("O efeito da poção acabou!");
         }
     }
 
@@ -197,12 +200,12 @@ public class Pokesal {
      * Aplica o dano por turno de queimadura ou envenenamento.
      */
     public void sofrerDanoEfeitos() {
-        if (statusAtual == EfeitosStatus.Queimado) {
-            System.out.println(getNome() +
+        if (statusAtual == EfeitosStatus.QUEIMADO) {
+            logger.info(getNome() +
                     " sofreu com queimadura!E teve sua velocidade reduzida...");
             hpBatalha = hpBatalha - (getHP() * 0.1);
-        } else if (statusAtual == EfeitosStatus.Envenenado) {
-            System.out.println(getNome() + " sofreu com envenenamento");
+        } else if (statusAtual == EfeitosStatus.ENVENENADO) {
+            logger.info(getNome() + " sofreu com envenenamento");
             hpBatalha = hpBatalha - (getHP() * 0.2);
         }
     }
@@ -211,11 +214,11 @@ public class Pokesal {
      * Reduz a velocidade atual conforme o efeito de status (paralisia ou queimadura).
      */
     public void reduzirVelocidade() {
-        if (statusAtual == EfeitosStatus.Paralizado) {
-            System.out.println(getNome() + " sofreu com paralisia! Velocidade reduzida...");
+        if (statusAtual == EfeitosStatus.PARALIZADO) {
+            logger.info(getNome() + " sofreu com paralisia! Velocidade reduzida...");
             spdEfeito = getSPD() - 10;
         }
-        if (statusAtual == EfeitosStatus.Queimado) {
+        if (statusAtual == EfeitosStatus.QUEIMADO) {
             spdEfeito = getSPD() - 5;
         }
     }

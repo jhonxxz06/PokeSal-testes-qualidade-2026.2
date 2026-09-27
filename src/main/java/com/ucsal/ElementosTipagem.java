@@ -1,6 +1,7 @@
 package com.ucsal;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Logger;
 
 /**
  * Tipos (elementos) dos Pokesais, com as regras de efetividade entre eles
@@ -9,13 +10,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public enum ElementosTipagem {
 
     /** Tipo Fogo: forte contra Planta e fraco contra Água. */
-    Fogo(12),
+    FOGO(12),
 
     /** Tipo Água: forte contra Fogo e fraco contra Planta. */
-    Agua(10),
+    AGUA(10),
 
     /** Tipo Planta: forte contra Água e fraco contra Fogo. */
-    Planta(11);
+    PLANTA(11);
+
+    static Logger logger = Logger.getLogger(ElementosTipagem.class.getName());
 
     /** Multiplicador aplicado quando o tipo é forte contra o adversário. */
     private final int multiplicadorPositivo = 2;
@@ -24,10 +27,10 @@ public enum ElementosTipagem {
     private final double multiplicadorNegativo = 0.5;
 
     /** Chance base (em porcentagem) de acertar um golpe crítico. */
-    private static final int ChanceBase = 10;
+    private static final int CHANCE_BASE = 10;
 
     /** Multiplicador aplicado ao dano quando o golpe é crítico. */
-    private static final double MultiplicadorCritico = 2.0;
+    private static final double MULTIPLICADOR_CRITICO = 2.0;
 
     /** Dano base do tipo. */
     private double dano;
@@ -55,7 +58,7 @@ public enum ElementosTipagem {
      *
      * @param dano novo dano base
      */
-    public void setDano(double dano) {
+    void setDano(double dano) {
         this.dano = dano;
     }
 
@@ -71,25 +74,25 @@ public enum ElementosTipagem {
             return dano;
         }
         switch (this) {
-            case Fogo:
-                if (adversario == Planta) {
-                    return (Fogo.dano * multiplicadorPositivo);
-                } else if (adversario == Agua) {
-                    return (Fogo.dano * multiplicadorNegativo);
+            case  FOGO:
+                if (adversario == PLANTA) {
+                    return ( FOGO.dano * multiplicadorPositivo);
+                } else if (adversario == AGUA) {
+                    return ( FOGO.dano * multiplicadorNegativo);
                 }
                 break;
-            case Agua:
-                if (adversario == Fogo) {
-                    return (Agua.dano * multiplicadorPositivo);
-                } else if (adversario == Planta) {
-                    return (Agua.dano * multiplicadorNegativo);
+            case AGUA:
+                if (adversario ==  FOGO) {
+                    return (AGUA.dano * multiplicadorPositivo);
+                } else if (adversario == PLANTA) {
+                    return (AGUA.dano * multiplicadorNegativo);
                 }
                 break;
-            case Planta:
-                if (adversario == Agua) {
-                    return (Planta.dano * multiplicadorPositivo);
-                } else if (adversario == Fogo) {
-                    return (Planta.dano * multiplicadorNegativo);
+            case PLANTA:
+                if (adversario == AGUA) {
+                    return (PLANTA.dano * multiplicadorPositivo);
+                } else if (adversario ==  FOGO) {
+                    return (PLANTA.dano * multiplicadorNegativo);
                 }
                 break;
         }
@@ -104,7 +107,7 @@ public enum ElementosTipagem {
      * @return chance de crítico, em porcentagem
      */
     public static int calcularChance(Pokesal atacante) {
-        return ChanceBase + (atacante.getSPDefeito() / 5);
+        return CHANCE_BASE + (atacante.getSPDefeito() / 5);
     }
 
     /**
@@ -126,7 +129,7 @@ public enum ElementosTipagem {
      * @return dano após o multiplicador de crítico
      */
     public static double aplicarCritico(double dano) {
-        System.out.println("Acertou um golpe crítico!");
-        return dano * MultiplicadorCritico;
+        logger.info("Acertou um golpe crítico!");
+        return dano * MULTIPLICADOR_CRITICO;
     }
 }

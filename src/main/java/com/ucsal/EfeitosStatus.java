@@ -1,24 +1,26 @@
 package com.ucsal;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Efeitos de status que podem ser aplicados a um Pokesal, com sua duração em turnos.
  */
 public enum EfeitosStatus {
-
     /**
      * Causa dano de queimadura e reduz a velocidade.
      */
-    Queimado(3),
+     QUEIMADO(3),
 
     /**
      * Causa dano de envenenamento.
      */
-    Envenenado(4),
+     ENVENENADO(4),
 
     /**
      * Reduz a velocidade do Pokesal.
      */
-    Paralizado(3);
+     PARALIZADO(3);
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     /**
      * Quantidade de turnos em que o efeito permanece.
@@ -48,7 +50,7 @@ public enum EfeitosStatus {
      *
      * @param turnos nova quantidade de turnos do efeito
      */
-    public void setTurnos(int turnos) {
+    void setTurnos(int turnos) {
         this.turnos = turnos;
     }
 
@@ -60,32 +62,36 @@ public enum EfeitosStatus {
     public void definirEfeitos(Pokesal pokesal) {
 
         switch (this) {
-            case Queimado:
-                if (pokesal.getElementosTipagem() == ElementosTipagem.Fogo) {
-                    System.out.println("Não sofreu queimadura ");
+            case QUEIMADO:
+                if (pokesal.getElementosTipagem() == ElementosTipagem.FOGO) {
+                    logger.info("Não sofreu queimadura ");
                 } else {
-                    pokesal.setStatusAtual(EfeitosStatus.Queimado);
-                    System.out.println("Pokesal " + pokesal.getNome() + " foi queimado :c");
+                    pokesal.setStatusAtual(EfeitosStatus.QUEIMADO);
+                    logger.log(Level.INFO, () -> retornarNome(pokesal) + " foi queimado :c ");
                 }
                 break;
-            case Paralizado:
-                if (pokesal.getElementosTipagem() == ElementosTipagem.Agua) {
-                    System.out.println("Não sofreu paralisia ");
+            case PARALIZADO:
+                if (pokesal.getElementosTipagem() == ElementosTipagem.AGUA) {
+                    logger.info("Não sofreu paralisia ");
                 } else {
-                    pokesal.setStatusAtual(EfeitosStatus.Paralizado);
-                    System.out.println("Pokesal " + pokesal.getNome() + " foi paralizado :c");
+                    pokesal.setStatusAtual(EfeitosStatus.PARALIZADO);
+                    logger.log(Level.INFO, () -> retornarNome(pokesal) + " foi paralizado :c");
                     pokesal.reduzirVelocidade();
                 }
                 break;
-            case Envenenado:
-                if (pokesal.getElementosTipagem() == ElementosTipagem.Planta) {
-                    System.out.println("Não sofreu envenenamento ");
+            case ENVENENADO:
+                if (pokesal.getElementosTipagem() == ElementosTipagem.PLANTA) {
+                    logger.info("Não sofreu envenenamento ");
                 } else {
-                    pokesal.setStatusAtual(EfeitosStatus.Envenenado);
-                    System.out.println("Pokesal " + pokesal.getNome() + " foi envenenado :c");
+                    pokesal.setStatusAtual(EfeitosStatus.ENVENENADO);
+                    logger.log(Level.INFO, () -> retornarNome(pokesal) + " foi envenenado :c");
                 }
                 break;
         }
+    }
+
+    private static String retornarNome(Pokesal pokesal) {
+        return "Pokesal " + pokesal.getNome();
     }
 
 }

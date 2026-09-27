@@ -2,21 +2,24 @@ package com.ucsal;
 
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Controla uma batalha entre dois treinadores, turno a turno, no terminal.
  */
 public class PokesalBatalha {
 
+    Logger logger = Logger.getLogger(getClass().getName());
+
     /**
      * Chance (em porcentagem) do efeito de status após um ataque.
      */
-    private static final int ChanceEfeitoATK1 = 10;
+    private static final int CHANCE_EFEITO_ATK_1 = 10;
     /**
      * Chance (em porcentagem) do efeito de status ao escolher aplicar efeito.
      */
 
-    private static final int ChanceEfeitoATK2 = 75;
+    private static final int CHANCE_EFEITO_ATK_2 = 75;
     /**
      * Primeiro treinador da batalha.
      */
@@ -62,6 +65,7 @@ public class PokesalBatalha {
     public void batalha() {
         tipoAsfalto.definirVantagens(desafiante1.getPokesal());
         tipoAsfalto.definirVantagens(desafiante2.getPokesal());
+        logger.log(Level.INFO, "O terreno da batalha é {0}", tipoAsfalto);
         System.out.println("O terreno da batalha é " + tipoAsfalto);
 
         TreinadorPokesal primeiro = desafiante1.getPokesal().getSPDefeito() > desafiante2.getPokesal().getSPDefeito()
@@ -74,10 +78,10 @@ public class PokesalBatalha {
     private void executarBatalha(TreinadorPokesal primeiro, TreinadorPokesal segundo) {
         int opSelecionada;
         while (primeiro.getPokesal().getHpBatalha() > 0 && segundo.getPokesal().getHpBatalha() > 0) {
-            if (primeiro.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
+            if (primeiro.getPokesal().getElementosTipagem() == ElementosTipagem.PLANTA) {
                 tipoAsfalto.aplicarRecuperacaoHpPlanta(primeiro.getPokesal());
             }
-            if (segundo.getPokesal().getElementosTipagem() == ElementosTipagem.Planta) {
+            if (segundo.getPokesal().getElementosTipagem() == ElementosTipagem.PLANTA) {
                 tipoAsfalto.aplicarRecuperacaoHpPlanta(segundo.getPokesal());
             }
             System.out.println("Pokesal - Temos que formá-los!");
@@ -104,8 +108,8 @@ public class PokesalBatalha {
      * @param atacante treinador que joga o turno
      */
     private void exibirMenu(TreinadorPokesal atacante) {
-        System.out.println("Selecione suas opções Treinador(a) " + atacante.getNome());
-        System.out.println("1 - Atacar Oponente " +
+        logger.info("Selecione suas opções Treinador(a) " + atacante.getNome());
+        logger.info("1 - Atacar Oponente " +
                 "\n2 - Aplicar Efeito Oponente" +
                 "\n3 - Usar Poção " + atacante.getItensUso() + "/2 " +
                 "\n4 - Fugir da batalha");
@@ -122,26 +126,27 @@ public class PokesalBatalha {
         switch (opcao) {
             case 1:
                 defensor.getPokesal().pokesalDanoSofrido(atacante.getPokesal());
-                sorteioEfeito(atacante, defensor, ChanceEfeitoATK1);
+                sorteioEfeito(atacante, defensor, CHANCE_EFEITO_ATK_1);
                 break;
             case 2:
-                sorteioEfeito(atacante, defensor, ChanceEfeitoATK2);
+                sorteioEfeito(atacante, defensor, CHANCE_EFEITO_ATK_2);
                 break;
 
             case 3:
-                if (atacante.getItensUso()>=2){
+                if (atacante.getItensUso() >= 2) {
                     System.out.println("Limite de poções por batalha atingido!");
                     break;
                 }
                 usarPocao(atacante);
                 break;
             case 4:
-                System.out.println(atacante.getNome() + " fugiu da batalha..."
+                logger.info(atacante.getNome() + " fugiu da batalha..."
                         + defensor.getNome() + " venceu...");
                 atacante.getPokesal().setHpBatalha(0);
                 break;
             default:
-                System.out.println("Opção inválida, turno perdido!");
+                logger.warning("Opção incorreta, escolha a opção entre 1 a 4!");
+                break;
         }
     }
 
@@ -173,12 +178,12 @@ public class PokesalBatalha {
      */
     private EfeitosStatus definirEfeitoTipo(ElementosTipagem atacante) {
         switch (atacante) {
-            case Fogo:
-                return EfeitosStatus.Queimado;
-            case Agua:
-                return EfeitosStatus.Paralizado;
-            case Planta:
-                return EfeitosStatus.Envenenado;
+            case FOGO:
+                return EfeitosStatus.QUEIMADO;
+            case AGUA:
+                return EfeitosStatus.PARALIZADO;
+            case PLANTA:
+                return EfeitosStatus.ENVENENADO;
             default:
                 return null;
         }
@@ -204,6 +209,16 @@ public class PokesalBatalha {
         if (sorteio <= chanceAcontecer) {
             efeito.definirEfeitos(defensor.getPokesal());
         }
+    }
+
+    private void exibirVencedor(TreinadorPokesal atacante, TreinadorPokesal defensor) {
+        if (atacante.getPokesal().getHpBatalha() <= 0) {
+            logger.info("O treinador " + atacante.getNome() + " venceu a batalha!");
+        }
+        else {
+            logger.info("O treiandor" + defensor.getNome() + " venceu a batalha");
+        }
+
     }
 
 
