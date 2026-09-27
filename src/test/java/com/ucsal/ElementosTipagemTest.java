@@ -12,62 +12,62 @@ class ElementosTipagemTest {
 
     @Test
     @DisplayName("Mesmo tipo contra mesmo tipo nao aplica multiplicador")
-    void mesmoTipoNaoTemMultiplicador() {
+    void mesmoTipoNTemMultiplicador() {
         double dano = ElementosTipagem.FOGO.calculoEfetividade(ElementosTipagem.FOGO);
         assertEquals(12.0, dano, DELTA);
     }
 
     @Test
     @DisplayName("Fogo dobra o dano contra Planta")
-    void fogoDobraDanoContraPlanta() {
+    void fogoDobraDanoPlanta() {
         double dano = ElementosTipagem.FOGO.calculoEfetividade(ElementosTipagem.PLANTA);
         assertEquals(24.0, dano, DELTA);
     }
 
     @Test
     @DisplayName("Fogo perde pela metade contra Agua")
-    void fogoPerdePraAgua() {
+    void fogoPerdeAgua() {
         double dano = ElementosTipagem.FOGO.calculoEfetividade(ElementosTipagem.AGUA);
         assertEquals(6.0, dano, DELTA);
     }
 
     @Test
     @DisplayName("Agua dobra o dano contra Fogo")
-    void aguaDobraDanoContraFogo() {
+    void aguaDobraDanoFogo() {
         double dano = ElementosTipagem.AGUA.calculoEfetividade(ElementosTipagem.FOGO);
         assertEquals(20.0, dano, DELTA);
     }
 
     @Test
     @DisplayName("Agua perde pela metade contra Planta")
-    void aguaPerdePraPlanta() {
+    void aguaPerdePlanta() {
         double dano = ElementosTipagem.AGUA.calculoEfetividade(ElementosTipagem.PLANTA);
         assertEquals(5.0, dano, DELTA);
     }
 
     @Test
     @DisplayName("Planta dobra o dano contra Agua")
-    void plantaDobraDanoContraAgua() {
+    void plantaDobrDanoContraAgu() {
         double dano = ElementosTipagem.PLANTA.calculoEfetividade(ElementosTipagem.AGUA);
         assertEquals(22.0, dano, DELTA);
     }
 
     @Test
     @DisplayName("Planta perde pela metade contra Fogo")
-    void plantaPerdePraFogo() {
+    void plantaPerdeFogo() {
         double dano = ElementosTipagem.PLANTA.calculoEfetividade(ElementosTipagem.FOGO);
         assertEquals(5.5, dano, DELTA);
     }
 
     @Test
     @DisplayName("Golpe critico dobra o dano recebido")
-    void criticoDobraODano() {
+    void criticoDobraDano() {
         assertEquals(20.0, ElementosTipagem.aplicarCritico(10.0), DELTA);
     }
 
     @Test
     @DisplayName("Quanto mais rapido o atacante, maior a chance de critico")
-    void maisRapidoMaiorChanceDeCritico() {
+    void maisRapidoMaiorCritico() {
         Pokesal lento = new Pokesal("Lento", 50, "AtkA", "AtkB", 0, ElementosTipagem.FOGO);
         Pokesal rapido = new Pokesal("Rapido", 50, "AtkA", "AtkB", 50, ElementosTipagem.FOGO);
 

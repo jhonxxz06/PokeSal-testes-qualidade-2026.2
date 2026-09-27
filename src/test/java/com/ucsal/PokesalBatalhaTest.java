@@ -73,7 +73,7 @@ class PokesalBatalhaTest {
 
     @Test
     @DisplayName("Poção de Fúria: 3ª tentativa de uso não é aplicada, itensUso trava em 2")
-    void limitaPocaoDeFuria() {
+    void limitaPocaoFuria() {
         TreinadorPokesal comFuria = criarTreinador("Rapido", 100, "Poção de Fúria");
 
         simularTresTentativas(comFuria, lento);
@@ -86,7 +86,7 @@ class PokesalBatalhaTest {
 
     @Test
     @DisplayName("Poção de Força: 3ª tentativa de uso não é aplicada, itensUso trava em 2")
-    void limitaPocaoDeForca() {
+    void limitaPocaoForca() {
         TreinadorPokesal comForca = criarTreinador("Rapido", 100, "Poção de Força");
 
         simularTresTentativas(comForca, lento);

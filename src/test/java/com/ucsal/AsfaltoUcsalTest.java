@@ -20,7 +20,7 @@ class AsfaltoUcsalTest {
 
     @Test
     @DisplayName("Asfalto Quente aumenta o dano do Fogo em 15% e não afeta a Água")
-    void asfaltoQuenteAumentaDanoDoFogo() {
+    void QuenteAumentaDanoFogo() {
         AsfaltoUcsal.ASFALTO_QUENTE.definirVantagens();
 
         assertAll(
@@ -31,7 +31,7 @@ class AsfaltoUcsalTest {
 
     @Test
     @DisplayName("Piso Escorregadio aumenta o dano da Agua em 10% e não afeta o Fogo")
-    void pisoEscorregadioAumentaDanoDaAgua() {
+    void AumentaDanoAgua() {
         AsfaltoUcsal.PISO_ESCORREGADIO.definirVantagens();
 
         assertAll(
@@ -42,7 +42,7 @@ class AsfaltoUcsalTest {
 
     @Test
     @DisplayName("Canteiro Central nao altera o dano de nenhum tipo")
-    void canteiroCentralNaoAlteraDano() {
+    void canteiroCentralNaoAltera() {
         AsfaltoUcsal.CANTEIRO_CENTRAL.definirVantagens();
 
         assertAll(
@@ -53,7 +53,7 @@ class AsfaltoUcsalTest {
 
     @Test
     @DisplayName("Canteiro Central recupera HP de um Pokesal do tipo Planta")
-    void canteiroCentralRecuperaHpDaPlanta() {
+    void canteiroCentralRecuperaHp() {
         Pokesal planta = new Pokesal("Folhinha", 100, "AtkA", "AtkB", 10, ElementosTipagem.PLANTA);
         planta.setHpBatalha(50);
 
@@ -64,7 +64,7 @@ class AsfaltoUcsalTest {
 
     @Test
     @DisplayName("Recuperacao de HP nao passa do HP maximo do Pokesal")
-    void recuperacaoNaoPassaDoHpMaximo() {
+    void recuperacaoNaoPassaHpMaximo() {
         Pokesal planta = new Pokesal("Folhinha", 100, "AtkA", "AtkB", 10, ElementosTipagem.PLANTA);
         planta.setHpBatalha(98);
 
@@ -75,7 +75,7 @@ class AsfaltoUcsalTest {
 
     @Test
     @DisplayName("Recuperacao do Canteiro Central so funciona para o tipo Planta")
-    void recuperacaoSoFuncionaParaPlanta() {
+    void recuperacaoFuncionaPlanta() {
         Pokesal fogo = new Pokesal("Chama", 100, "AtkA", "AtkB", 10, ElementosTipagem.FOGO);
         fogo.setHpBatalha(50);
 

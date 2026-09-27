@@ -39,7 +39,7 @@ class PokesalTest {
 
     @Test
     @DisplayName("Dano sofrido desconta corretamente da vida do defensor")
-    void danoSofridoDescontaDaVida() {
+    void danoSofridoDescontVida() {
         Pokesal atacante = new Pokesal("Atacante", 50, "AtkA", "AtkB", 10, ElementosTipagem.FOGO);
         Pokesal defensor = new Pokesal("Defensor", 50, "AtkA", "AtkB", 10, ElementosTipagem.FOGO);
 
@@ -97,7 +97,7 @@ class PokesalTest {
 
     @Test
     @DisplayName("Efeito da Pocao de Forca termina apos dois contarTurnoPocao")
-    void tempoEfeitoDaForca() {
+    void tempoEfeitoForca() {
         Pokesal p = new Pokesal("Forcudo", 50, "AtkA", "AtkB", 100, ElementosTipagem.FOGO);
         p.aplicarPocaoForca();
 
