@@ -1,9 +1,12 @@
 package com.ucsal;
+
 import java.util.logging.Level;
+
 import java.util.logging.Logger;
 /**
  * Efeitos de status que podem ser aplicados a um Pokesal, com sua duração em turnos.
  */
+
 public enum EfeitosStatus {
     /**
      * Causa dano de queimadura e reduz a velocidade.

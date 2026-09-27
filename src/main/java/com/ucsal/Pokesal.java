@@ -1,10 +1,12 @@
 package com.ucsal;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  * Criatura que participa das batalhas, com vida, velocidade, ataques, tipo, status
  * e efeitos temporários de poção.
  */
+
 public class Pokesal {
 
     Logger logger = Logger.getLogger(getClass().getName());
@@ -105,7 +107,7 @@ public class Pokesal {
     public void pokesalDanoSofrido(Pokesal atacante) {
         if (hpBatalha <= 0) {
             logger.warning("Pokesal derrotado! não pode receber mais dano");
-           return;
+            return;
         }
 
         double danototal = atacante.getElementosTipagem().calculoEfetividade(this.elementosTipagem);

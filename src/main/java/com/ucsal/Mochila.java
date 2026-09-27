@@ -1,9 +1,11 @@
 package com.ucsal;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  * Item da mochila do treinador, com nome, descrição e quantidade disponível.
  */
+
 public class Mochila {
 
     /**
@@ -21,6 +23,7 @@ public class Mochila {
      */
     private int quantidades;
 
+    private static final String TEXTO_INDISPONIVEL = " Indisponível";
     /**
      * Cria um item da mochila.
      *
@@ -28,6 +31,7 @@ public class Mochila {
      * @param itemDescricao descrição do item
      * @param quantidades   quantidade de unidades disponíveis
      */
+
     Logger logger = Logger.getLogger(getClass().getName());
 
     public Mochila(String item, String itemDescricao, int quantidades) {
@@ -102,17 +106,16 @@ public class Mochila {
             logger.info("Poção Selecionada...");
             treinador.getPokesal().setHpBatalha((treinador.getPokesal().getHpBatalha() + 5));
             logger.info(treinador.getPokesal().getNome());
-            System.out.println("Poção Selecionada...");
-            double hpMax = treinador.getPokesal().getHP();
-            double hpCurado = Math.min(treinador.getPokesal().getHpBatalha() + 5, hpMax);
+            final double hpMax = treinador.getPokesal().getHP();
+            final double hpCurado = Math.min(treinador.getPokesal().getHpBatalha() + 5, hpMax);
             treinador.getPokesal().setHpBatalha(hpCurado);
-            System.out.println(treinador.getPokesal().getNome()
+            logger.log(Level.INFO, () -> treinador.getPokesal().getNome()
                     + " teve 5 pnts de vida restaurados");
             treinador.setItensUso(treinador.getItensUso() + 1);
             pocao.setQuantidades(getQuantidades() - 1);
             // pensar para diminuição da quantidade dos itens
         } else {
-            logger.log(Level.INFO, () -> getItem() + textoIndisponivel());
+            logger.log(Level.INFO, () -> getItem() + TEXTO_INDISPONIVEL);
         }
     }
 
@@ -129,7 +132,7 @@ public class Mochila {
             treinador.setItensUso(treinador.getItensUso() + 1);
             pocaoFuria.setQuantidades(pocaoFuria.getQuantidades() - 1);
         } else {
-            logger.log(Level.INFO, () -> getItem() + textoIndisponivel());
+            logger.log(Level.INFO, () -> getItem() + TEXTO_INDISPONIVEL);
         }
     }
 
@@ -146,7 +149,7 @@ public class Mochila {
             treinador.setItensUso(treinador.getItensUso() + 1);
             pocaoForca.setQuantidades(pocaoForca.getQuantidades() - 1);
         } else {
-            logger.log(Level.INFO, () ->  getItem() + textoIndisponivel());
+            logger.log(Level.INFO, () ->  getItem() + TEXTO_INDISPONIVEL);
         }
     }
 
@@ -159,19 +162,15 @@ public class Mochila {
     public void usarSuperPocao(TreinadorPokesal treinador, Mochila superPocao) {
         if (superPocao.getQuantidades() > 0) {
             logger.info("Super Poção Selecionada...");
-            double hpMax = treinador.getPokesal().getHP();
-            double hpCurado = Math.min(treinador.getPokesal().getHpBatalha() + 5, hpMax);
+            final double hpMax = treinador.getPokesal().getHP();
+            final double hpCurado = Math.min(treinador.getPokesal().getHpBatalha() + 5, hpMax);
             treinador.getPokesal().setHpBatalha(hpCurado);
             logger.info(treinador.getPokesal().getNome()
                     + " teve 10 pnts de vida restaurados");
             treinador.setItensUso(treinador.getItensUso() + 1);
             superPocao.setQuantidades(getQuantidades() - 1);
         } else {
-            logger.log(Level.INFO, () -> getItem() + textoIndisponivel());
+            logger.log(Level.INFO, () -> getItem() + TEXTO_INDISPONIVEL);
         }
-    }
-
-    private static String textoIndisponivel() {
-        return " Indisponível";
     }
 }

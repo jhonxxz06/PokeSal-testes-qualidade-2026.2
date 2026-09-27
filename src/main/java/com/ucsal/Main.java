@@ -6,7 +6,11 @@ import java.util.logging.Logger;
 /**
  * Ponto de entrada do sistema de batalhas Pokesal no terminal.
  */
-public class Main {
+
+public final class Main {
+
+    private Main() {
+    }
 
     /**
      * Lê os dados do treinador, monta a batalha e a executa.
@@ -15,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         final Scanner ler = new Scanner(System.in);
-        Logger logger = Logger.getLogger(Main.class.getName());
+        final Logger logger = Logger.getLogger(Main.class.getName());
 
         final String[] resposta1 = new String[2];
 
@@ -38,7 +42,7 @@ public class Main {
             new Mochila("Poção", "Poção voltada para recuperação após partida", 10),
             new Mochila("Super Poção", "Poção voltada para maior recuperação de vida", 5),
             new Mochila("Poção de Fúria", "Aumenta a força em 10% " +
-                    "e a velocidade em 20% por um turno", 5),
+                        "e a velocidade em 20% por um turno", 5),
             new Mochila("Poção de Força", "Aumenta a força em 25% por um turno", 5)
         };
 
@@ -52,13 +56,32 @@ public class Main {
         logger.info("Qual seu nome treinador(a)? ");
         resposta1[0] = ler.nextLine();
 
+        final Pokesal pokesalEscolhido = escolherPokesal(ler, logger, pokesal);
+
+        logger.info("De qual cidade você veio?");
+        resposta1[1] = ler.next();
+        ler.nextLine();
+
+        final Mochila mochilaEscolhida = escolherMochila(ler, logger, mochila);
+
+        final TreinadorPokesal t4 = new TreinadorPokesal(resposta1[0],
+                pokesalEscolhido, resposta1[1], mochilaEscolhida);
+
+        final TreinadorPokesal oponenteEscolhido = escolherOponente(ler, logger, rivais);
+
+        final PokesalBatalha batalha1 = new PokesalBatalha(t4, oponenteEscolhido);
+        batalha1.batalha();
+    }
+
+    private static Pokesal escolherPokesal(Scanner ler, Logger logger, Pokesal[] pokesal) {
         logger.info("Deseja qual Pokesal?");
         for (int i = 0; i < pokesal.length; i++) {
             final int index = i + 1;
             logger.log(Level.INFO, () -> index + " - " + pokesal[index - 1].getNome() +
                     " (Tipo: " + pokesal[index - 1].getElementosTipagem() + ")");
         }
-        System.out.print("Digite o número correspondente: ");
+        logger.info("Digite o número correspondente: ");
+
         int opcaoPokesal = 0;
         boolean valido = false;
         while (!valido) {
@@ -67,30 +90,23 @@ public class Main {
                 if (opcaoPokesal >= 1 && opcaoPokesal <= pokesal.length) {
                     valido = true;
                 } else {
-                    System.out.println("Número fora do intervalo! Digite de 1 a " + pokesal.length + ": ");
+                    logger.log(Level.INFO, () -> "Número fora do intervalo! Digite de 1 a "
+                            + pokesal.length + ": ");
                 }
             } else {
-                System.out.println("Digite um número válido: ");
+                logger.info("Digite um número válido: ");
                 ler.next();
             }
         }
         ler.nextLine();
 
-        final Pokesal pokesalEscolhido = pokesal[opcaoPokesal - 1];
+        return pokesal[opcaoPokesal - 1];
+    }
 
-        logger.info("De qual cidade você veio?");
-        resposta1[1] = ler.next();
-        ler.nextLine();
-
+    private static Mochila escolherMochila(Scanner ler, Logger logger, Mochila[] mochila) {
         logger.info("Qual mochila deseja inicial deseja?");
-
-        String menuMochila = "";
-        for (int i = 0; i < mochila.length; i++) {
-            menuMochila += (i + 1) + " - " + mochila[i].getItem() + " " + mochila[i].getItemDescricao()
-                    + " com total de " + mochila[i].getQuantidades() + " Itens\n";
-        }
-        System.out.println(menuMochila);
-        System.out.print("Digite o número correspondente: ");
+        logger.info(() -> montarMenuMochila(mochila));
+        logger.info("Digite o número correspondente: ");
 
         int opcaoMochila = 0;
         boolean validoMochila = false;
@@ -100,40 +116,46 @@ public class Main {
                 if (opcaoMochila >= 1 && opcaoMochila <= mochila.length) {
                     validoMochila = true;
                 } else {
-                    System.out.println("Número fora do intervalo! Digite de 1 a " + mochila.length + ": ");
+                    logger.log(Level.INFO, () -> "Número fora do intervalo! Digite de 1 a "
+                            + mochila.length + ": ");
                 }
             } else {
-                System.out.println("Digite um número válido: ");
+                logger.info("Digite um número válido: ");
                 ler.next();
             }
         }
         ler.nextLine();
 
-        final Mochila mochilaEscolhida = mochila[opcaoMochila - 1];
+        return mochila[opcaoMochila - 1];
+    }
 
-        final TreinadorPokesal t4 = new TreinadorPokesal(resposta1[0],
-                pokesalEscolhido, resposta1[1], mochilaEscolhida);
+    private static String montarMenuMochila(Mochila[] mochila) {
+        final StringBuilder menuMochila = new StringBuilder();
+        for (int i = 0; i < mochila.length; i++) {
+            menuMochila.append(i + 1)
+                    .append(" - ")
+                    .append(mochila[i].getItem())
+                    .append(" ")
+                    .append(mochila[i].getItemDescricao())
+                    .append(" com total de ")
+                    .append(mochila[i].getQuantidades())
+                    .append(" Itens\n");
+        }
+        return menuMochila.toString();
+    }
 
+    private static TreinadorPokesal escolherOponente(Scanner ler, Logger logger,
+                                                     TreinadorPokesal[] rivais) {
         logger.info("\nCom quem você deseja batalhar?");
         for (int i = 0; i < rivais.length; i++) {
             final int index = i + 1;
-
-            logger.log(Level.INFO, () ->  (index) + " - " + rivais[index - 1 ].getNome() + " (Pokesal: " +
-                    rivais[index - 1].getPokesal().getNome()
+            logger.log(Level.INFO, () -> index + " - " + rivais[index - 1].getNome()
+                    + " (Pokesal: " + rivais[index - 1].getPokesal().getNome()
                     + " - Cidade: " + rivais[index - 1].getCidade() + ")");
         }
         logger.info("Digite o número do seu oponente: ");
         final int opcaoOponente = ler.nextInt();
 
-        final TreinadorPokesal oponenteEscolhido = rivais[opcaoOponente - 1];
-
-
-        final PokesalBatalha batalha1 = new PokesalBatalha(t4, oponenteEscolhido);
-        batalha1.batalha();
-
-    }
-
-    private static String textoTotalItens() {
-        return " com o total de ";
+        return rivais[opcaoOponente - 1];
     }
 }

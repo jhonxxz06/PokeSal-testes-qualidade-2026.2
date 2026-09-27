@@ -39,9 +39,8 @@ public enum AsfaltoUcsal {
     /**
      * Aplica ao dano do tipo afetado o percentual deste terreno.
      *
-     * @param pokesal Pokesal que participa da batalha
      */
-    public void definirVantagens(Pokesal pokesal) {
+    public void definirVantagens() {
         switch (this) {
             case ASFALTO_QUENTE:
                 ElementosTipagem.FOGO.setDano(ElementosTipagem.FOGO.getDano()

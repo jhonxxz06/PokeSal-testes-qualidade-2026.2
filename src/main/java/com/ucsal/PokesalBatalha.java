@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 /**
  * Controla uma batalha entre dois treinadores, turno a turno, no terminal.
  */
+
 public class PokesalBatalha {
 
     Logger logger = Logger.getLogger(getClass().getName());
@@ -63,31 +64,31 @@ public class PokesalBatalha {
      * e, ao final, exibe o vencedor.
      */
     public void batalha() {
-        tipoAsfalto.definirVantagens(desafiante1.getPokesal());
-        tipoAsfalto.definirVantagens(desafiante2.getPokesal());
-        logger.log(Level.INFO, "O terreno da batalha é {0}", tipoAsfalto);
-        System.out.println("O terreno da batalha é " + tipoAsfalto);
+        tipoAsfalto.definirVantagens();
 
-        TreinadorPokesal primeiro = desafiante1.getPokesal().getSPDefeito() > desafiante2.getPokesal().getSPDefeito()
-                ? desafiante1 : desafiante2;
-        TreinadorPokesal segundo = (primeiro == desafiante1) ? desafiante2 : desafiante1;
+        logger.log(Level.INFO, "O terreno da batalha é {0}", tipoAsfalto);
+
+        final TreinadorPokesal primeiro = desafiante1.getPokesal().getSPDefeito() >
+                desafiante2.getPokesal().getSPDefeito() ? desafiante1 : desafiante2;
+        final TreinadorPokesal segundo = (primeiro == desafiante1) ? desafiante2 : desafiante1;
 
         executarBatalha(primeiro, segundo);
     }
 
     private void executarBatalha(TreinadorPokesal primeiro, TreinadorPokesal segundo) {
         int opSelecionada;
-        while (primeiro.getPokesal().getHpBatalha() > 0 && segundo.getPokesal().getHpBatalha() > 0) {
+        while (primeiro.getPokesal().getHpBatalha() > 0 &&
+                segundo.getPokesal().getHpBatalha() > 0) {
             if (primeiro.getPokesal().getElementosTipagem() == ElementosTipagem.PLANTA) {
                 tipoAsfalto.aplicarRecuperacaoHpPlanta(primeiro.getPokesal());
             }
             if (segundo.getPokesal().getElementosTipagem() == ElementosTipagem.PLANTA) {
                 tipoAsfalto.aplicarRecuperacaoHpPlanta(segundo.getPokesal());
             }
-            System.out.println("Pokesal - Temos que formá-los!");
+            logger.info("Pokesal - Temos que formá-los!");
 
-            TreinadorPokesal atacanteDaVez = (contadorTurnos % 2 == 0) ? primeiro : segundo;
-            TreinadorPokesal defensorDaVez  = (contadorTurnos % 2 == 0) ? segundo : primeiro;
+            final TreinadorPokesal atacanteDaVez = (contadorTurnos % 2 == 0) ? primeiro : segundo;
+            final TreinadorPokesal defensorDaVez  = (contadorTurnos % 2 == 0) ? segundo : primeiro;
 
             exibirMenu(atacanteDaVez);
             opSelecionada = ler.nextInt();
@@ -97,8 +98,9 @@ public class PokesalBatalha {
             contadorTurnos += 1;
         }
 
-        TreinadorPokesal vencedor = primeiro.getPokesal().getHpBatalha() <= 0 ? segundo : primeiro;
-        System.out.println("O oponente " + vencedor.getNome() +
+        final TreinadorPokesal vencedor = primeiro.getPokesal().getHpBatalha()
+                <= 0 ? segundo : primeiro;
+        logger.log(Level.INFO, () -> "O oponente " + vencedor.getNome() +
                 " do Pokesal " + vencedor.getPokesal().getNome() + " foi o vencedor");
     }
 
@@ -134,7 +136,7 @@ public class PokesalBatalha {
 
             case 3:
                 if (atacante.getItensUso() >= 2) {
-                    System.out.println("Limite de poções por batalha atingido!");
+                    logger.warning("Limite de poções por batalha atingido!");
                     break;
                 }
                 usarPocao(atacante);
@@ -201,6 +203,9 @@ public class PokesalBatalha {
                                TreinadorPokesal defensor, int chanceAcontecer) {
         final EfeitosStatus efeito = definirEfeitoTipo(atacante.getPokesal().getElementosTipagem());
 
+        if (efeito == null) {
+            return;
+        }
         if (defensor.getPokesal().getStatusAtual() != null) {
             return;
         }
@@ -210,16 +215,4 @@ public class PokesalBatalha {
             efeito.definirEfeitos(defensor.getPokesal());
         }
     }
-
-    private void exibirVencedor(TreinadorPokesal atacante, TreinadorPokesal defensor) {
-        if (atacante.getPokesal().getHpBatalha() <= 0) {
-            logger.info("O treinador " + atacante.getNome() + " venceu a batalha!");
-        }
-        else {
-            logger.info("O treiandor" + defensor.getNome() + " venceu a batalha");
-        }
-
-    }
-
-
 }
