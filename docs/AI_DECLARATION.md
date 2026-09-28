@@ -11,3 +11,7 @@ somente as palavras corrigidas.
 Corrija apenas erros de ortografia e pontuação desta ata de reunião da equipe PokeSal.
 Mantenha nomes, datas, decisões e a distribuição de tarefas exatamente como estão. Não
 reformule nem resuma. Devolva o texto corrigido e a lista das alterações.
+
+o documento da atividade me pediu um relatório do SonarQube evidenciando determinadas métricas:
+Code Smells, Bugs, Vulnerabilities e Coverage. Entretanto eu ao acessar o overview do projeto só encontro métricas de: Security, Reliability, Maintainability, Accepted issues, Duplications e Security Hotspots que é tido como obsoleto,
+onde posso encontrar as métricas solicitadas?"
