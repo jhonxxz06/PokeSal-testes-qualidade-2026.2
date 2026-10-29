@@ -36,6 +36,26 @@ public class Pokesal {
      */
     private String atk2;
 
+    public int getPrecisaoAtk() {
+        return precisaoAtk;
+    }
+
+    public void setPrecisaoAtk(int precisaoAtk) {
+        this.precisaoAtk = precisaoAtk;
+    }
+
+    public int getPrecisaoAtk2() {
+        return precisaoAtk2;
+    }
+
+    public void setPrecisaoAtk2(int precisaoAtk2) {
+        this.precisaoAtk2 = precisaoAtk2;
+    }
+
+    private int precisaoAtk;
+
+    private int precisaoAtk2;
+
     /**
      * Velocidade base do Pokesal.
      */
@@ -86,13 +106,15 @@ public class Pokesal {
      * @param spd              velocidade
      * @param elementosTipagem tipo (elemento) do Pokesal
      */
-    public Pokesal(String nome, double hP, String atk, String atk2,
-                   int spd, ElementosTipagem elementosTipagem) {
+    public Pokesal(String nome, double hP, String atk,int precisaoAtk, String atk2,
+                   int precisaoAtk2, int spd, ElementosTipagem elementosTipagem) {
         this.nome = nome;
         this.hP = hP;
         this.hpBatalha = hP;
         this.atk = atk;
+        this.precisaoAtk = precisaoAtk;
         this.atk2 = atk2;
+        this.precisaoAtk2 = precisaoAtk2;
         this.spd = spd;
         this.spdEfeito = spd;
         this.elementosTipagem = elementosTipagem;
@@ -113,7 +135,7 @@ public class Pokesal {
         double danototal = atacante.getElementosTipagem().calculoEfetividade(this.elementosTipagem);
         danototal = danototal * atacante.getForcaEfeito();
 
-        if (ElementosTipagem.sortearCritico(atacante)) {
+        if (ElementosTipagem.sortearCritico()) {
             danototal = ElementosTipagem.aplicarCritico(danototal);
         }
 

@@ -20,6 +20,8 @@ public enum ElementosTipagem {
 
     static Logger logger = Logger.getLogger(ElementosTipagem.class.getName());
 
+    static final Sorteador sorteio = new Sorteador();
+
     /** Multiplicador aplicado quando o tipo é forte contra o adversário. */
     private final int multiplicadorPositivo = 2;
 
@@ -27,10 +29,10 @@ public enum ElementosTipagem {
     private final double multiplicadorNegativo = 0.5;
 
     /** Chance base (em porcentagem) de acertar um golpe crítico. */
-    private static final int CHANCE_BASE = 10;
+    private static final double CHANCE_CRITICO = 6.25;
 
     /** Multiplicador aplicado ao dano quando o golpe é crítico. */
-    private static final double MULTIPLICADOR_CRITICO = 2.0;
+    private static final double MULTIPLICADOR_CRITICO = 1.5;
 
     /** Dano base do tipo. */
     private double dano;
@@ -99,27 +101,17 @@ public enum ElementosTipagem {
         return dano;
     }
 
-    /**
-     * Calcula a chance de crítico do atacante. Quanto mais rápido o Pokesal,
-     * maior a chance de acertar um ponto fraco.
-     *
-     * @param atacante Pokesal que está atacando
-     * @return chance de crítico, em porcentagem
-     */
-    public static int calcularChance(Pokesal atacante) {
-        return CHANCE_BASE + (atacante.getSPDefeito() / 5);
-    }
 
     /**
      * Sorteia se o golpe do atacante será crítico.
      *
-     * @param atacante Pokesal que está atacando
+    // * @param atacante Pokesal que está atacando
      * @return {@code true} se o golpe for crítico
      */
-    public static boolean sortearCritico(Pokesal atacante) {
-        final int sorteio = ThreadLocalRandom.current().nextInt(0, 101);
+    public static boolean sortearCritico() {
+        final int chanceCritico = sorteio.realizarSorte1a100(100);
 
-        return sorteio <= calcularChance(atacante);
+        return chanceCritico <= CHANCE_CRITICO;
     }
 
     /**

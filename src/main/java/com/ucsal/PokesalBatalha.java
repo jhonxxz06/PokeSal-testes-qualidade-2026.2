@@ -12,6 +12,8 @@ public class PokesalBatalha {
 
     Logger logger = Logger.getLogger(getClass().getName());
 
+    private static final Sorteador sorteio = new Sorteador();
+
     /**
      * Chance (em porcentagem) do efeito de status após um ataque.
      */
@@ -127,10 +129,17 @@ public class PokesalBatalha {
     private void executarEscolha(int opcao, TreinadorPokesal atacante, TreinadorPokesal defensor) {
         switch (opcao) {
             case 1:
+                if (sorteio.realizarSorte1a100(100) > atacante.getPokesal().getPrecisaoAtk() ) {
+                    System.out.println("Pokesal errou o ataque!");
+                }
+
                 defensor.getPokesal().pokesalDanoSofrido(atacante.getPokesal());
                 sorteioEfeito(atacante, defensor, CHANCE_EFEITO_ATK_1);
                 break;
             case 2:
+                if (sorteio.realizarSorte1a100(100) > atacante.getPokesal().getPrecisaoAtk2() ) {
+                    System.out.println("Pokesal errou o ataque!");
+                }
                 sorteioEfeito(atacante, defensor, CHANCE_EFEITO_ATK_2);
                 break;
 
@@ -209,9 +218,9 @@ public class PokesalBatalha {
         if (defensor.getPokesal().getStatusAtual() != null) {
             return;
         }
-        final int sorteio = ThreadLocalRandom.current().nextInt(0, 101);
+        final int resultadoSorteio = sorteio.realizarSorte1a100(100);
 
-        if (sorteio <= chanceAcontecer) {
+        if (resultadoSorteio <= chanceAcontecer) {
             efeito.definirEfeitos(defensor.getPokesal());
         }
     }
