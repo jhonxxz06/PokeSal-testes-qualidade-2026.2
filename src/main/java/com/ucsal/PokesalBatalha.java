@@ -37,16 +37,6 @@ public class PokesalBatalha {
 
     private final AsfaltoUcsal tipoAsfalto;
     /**
-     * Serviço que decide se o efeito do terreno está ativo (clima e horário).
-     */
-
-    private final ServicoTerreno servicoTerreno;
-    /**
-     * Registro que recebe os eventos de cada turno da batalha.
-     */
-
-    private final RegistroBatalha registro;
-    /**
      * Leitor da entrada do terminal.
      */
 
@@ -58,45 +48,15 @@ public class PokesalBatalha {
     private int contadorTurnos = 0;
 
     /**
-     * Cria uma batalha com terreno sorteado, serviço de terreno padrão e registro novo.
+     * Cria uma batalha e sorteia o terreno.
      *
      * @param desafiante1 primeiro treinador
      * @param desafiante2 segundo treinador
      */
     public PokesalBatalha(TreinadorPokesal desafiante1, TreinadorPokesal desafiante2) {
-        this(desafiante1, desafiante2, ServicoTerreno.padrao(), new RegistroBatalha());
-    }
-
-    /**
-     * Cria uma batalha e sorteia o terreno.
-     *
-     * @param desafiante1    primeiro treinador
-     * @param desafiante2    segundo treinador
-     * @param servicoTerreno serviço que decide se o efeito do terreno está ativo
-     * @param registro       registro que recebe os eventos da batalha
-     */
-    public PokesalBatalha(TreinadorPokesal desafiante1, TreinadorPokesal desafiante2,
-                          ServicoTerreno servicoTerreno, RegistroBatalha registro) {
-        this(desafiante1, desafiante2, AsfaltoUcsal.escolherAsfalto(), servicoTerreno, registro);
-    }
-
-    /**
-     * Cria uma batalha em um terreno definido.
-     *
-     * @param desafiante1    primeiro treinador
-     * @param desafiante2    segundo treinador
-     * @param tipoAsfalto    terreno da batalha
-     * @param servicoTerreno serviço que decide se o efeito do terreno está ativo
-     * @param registro       registro que recebe os eventos da batalha
-     */
-    public PokesalBatalha(TreinadorPokesal desafiante1, TreinadorPokesal desafiante2,
-                          AsfaltoUcsal tipoAsfalto, ServicoTerreno servicoTerreno,
-                          RegistroBatalha registro) {
         this.desafiante1 = desafiante1;
         this.desafiante2 = desafiante2;
-        this.tipoAsfalto = tipoAsfalto;
-        this.servicoTerreno = servicoTerreno;
-        this.registro = registro;
+        this.tipoAsfalto = AsfaltoUcsal.escolherAsfalto();
     }
 
     /**
@@ -104,9 +64,7 @@ public class PokesalBatalha {
      * e, ao final, exibe o vencedor.
      */
     public void batalha() {
-        if (servicoTerreno.efeitoAtivo(tipoAsfalto)) {
-            tipoAsfalto.definirVantagens();
-        }
+        tipoAsfalto.definirVantagens();
 
         logger.log(Level.INFO, "O terreno da batalha é {0}", tipoAsfalto);
 
@@ -121,8 +79,12 @@ public class PokesalBatalha {
         int opSelecionada;
         while (primeiro.getPokesal().getHpBatalha() > 0 &&
                 segundo.getPokesal().getHpBatalha() > 0) {
-            recuperarHpPlanta(primeiro);
-            recuperarHpPlanta(segundo);
+            if (primeiro.getPokesal().getElementosTipagem() == ElementosTipagem.PLANTA) {
+                tipoAsfalto.aplicarRecuperacaoHpPlanta(primeiro.getPokesal());
+            }
+            if (segundo.getPokesal().getElementosTipagem() == ElementosTipagem.PLANTA) {
+                tipoAsfalto.aplicarRecuperacaoHpPlanta(segundo.getPokesal());
+            }
             logger.info("Pokesal - Temos que formá-los!");
 
             final TreinadorPokesal atacanteDaVez = (contadorTurnos % 2 == 0) ? primeiro : segundo;
@@ -134,7 +96,6 @@ public class PokesalBatalha {
             atacanteDaVez.getPokesal().contarTurnoEfeito();
             atacanteDaVez.getPokesal().contarTurnoPocao();
             contadorTurnos += 1;
-            registro.encerrarTurno();
         }
 
         final TreinadorPokesal vencedor = primeiro.getPokesal().getHpBatalha()
@@ -166,11 +127,7 @@ public class PokesalBatalha {
     private void executarEscolha(int opcao, TreinadorPokesal atacante, TreinadorPokesal defensor) {
         switch (opcao) {
             case 1:
-                final double hpAntes = defensor.getPokesal().getHpBatalha();
-                registrarEvento(RegistroBatalha.Tipo.ATAQUE, atacante.getNome() + " atacou " + defensor.getNome());
                 defensor.getPokesal().pokesalDanoSofrido(atacante.getPokesal());
-                registrarEvento(RegistroBatalha.Tipo.DANO, defensor.getPokesal().getNome() + " perdeu "
-                        + (hpAntes - defensor.getPokesal().getHpBatalha()) + " de vida");
                 sorteioEfeito(atacante, defensor, CHANCE_EFEITO_ATK_1);
                 break;
             case 2:
@@ -183,8 +140,6 @@ public class PokesalBatalha {
                     break;
                 }
                 usarPocao(atacante);
-                registrarEvento(RegistroBatalha.Tipo.USO_ITEM, atacante.getNome() + " usou "
-                        + atacante.getAcessorios().getItem());
                 break;
             case 4:
                 logger.info(atacante.getNome() + " fugiu da batalha..."
@@ -258,40 +213,6 @@ public class PokesalBatalha {
 
         if (sorteio <= chanceAcontecer) {
             efeito.definirEfeitos(defensor.getPokesal());
-            if (defensor.getPokesal().getStatusAtual() == efeito) {
-                registrarEvento(RegistroBatalha.Tipo.EFEITO_STATUS, defensor.getPokesal().getNome()
-                        + " recebeu o efeito " + efeito);
-            }
         }
-    }
-
-    /**
-     * Aplica a recuperação de HP do terreno ao Pokesal do tipo Planta, se o efeito do
-     * terreno estiver ativo, e registra o evento de terreno quando houver recuperação.
-     *
-     * @param treinador treinador dono do Pokesal
-     */
-    private void recuperarHpPlanta(TreinadorPokesal treinador) {
-        final Pokesal pokesal = treinador.getPokesal();
-        if (pokesal.getElementosTipagem() != ElementosTipagem.PLANTA
-                || !servicoTerreno.efeitoAtivo(tipoAsfalto)) {
-            return;
-        }
-        final double hpAntes = pokesal.getHpBatalha();
-        tipoAsfalto.aplicarRecuperacaoHpPlanta(pokesal);
-        if (pokesal.getHpBatalha() > hpAntes) {
-            registrarEvento(RegistroBatalha.Tipo.EFEITO_TERRENO, pokesal.getNome() + " recuperou "
-                    + (pokesal.getHpBatalha() - hpAntes) + " de vida no " + tipoAsfalto);
-        }
-    }
-
-    /**
-     * Registra um evento no turno atual da batalha.
-     *
-     * @param tipo      tipo do evento
-     * @param descricao texto descrevendo o que aconteceu
-     */
-    private void registrarEvento(RegistroBatalha.Tipo tipo, String descricao) {
-        registro.registrar(contadorTurnos + 1, tipo, descricao);
     }
 }
